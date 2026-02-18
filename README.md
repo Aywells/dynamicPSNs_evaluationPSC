@@ -1,4 +1,4 @@
-# Dynamic Graphlets Deep Learning Pipeline
+# CNN+LSTM Deep Learning Pipeline
 
 This repository contains scripts for:
 
