@@ -1,0 +1,668 @@
+
+========== STARTING EXPERIMENT ==========
+[INFO] Dataset: scop-g
+[INFO] Model type: dgcn
+[INFO] Feature mode: dgdvms
+[INFO] Partitions mode: user
+[INFO] Device: cuda
+[INFO] Output directory: datasets/scop-g/output
+[INFO] Random seed set to 42.
+
+========== LOADING DATASET FROM DISK ==========
+[INFO] Dataset directory: datasets/scop-g
+[INFO] Reading dataset label file: datasets/scop-g/scop-g.txt
+[INFO] Loaded 78 samples from label file.
+[INFO] Detected 2 unique classes.
+[INFO] Indexing dGDVM files in: datasets/scop-g/dgdvms
+[INFO] Found 78 dGDVM txt files.
+[INFO] Processing sample 25/78: 1g1q_A_119_158
+[INFO] Processing sample 50/78: 1qub_A_244_326
+[INFO] Processing sample 75/78: 1zjk_A_311_363
+[INFO] Processing sample 78/78: 2qy0_A_358_446
+[INFO] Finished loading dataset 'scop-g'.
+[INFO] Loaded samples: 78
+[INFO] Problematic samples: 0
+[INFO] Input feature dimension: 211
+
+========== LOADING USER PARTITIONS ==========
+[INFO] Reading partition file: datasets/scop-g/partitions/1.txt
+[INFO] Reading partition file: datasets/scop-g/partitions/2.txt
+[INFO] Reading partition file: datasets/scop-g/partitions/3.txt
+[INFO] Reading partition file: datasets/scop-g/partitions/4.txt
+[INFO] Reading partition file: datasets/scop-g/partitions/5.txt
+[INFO] Partition fold 1: train=62, test=16
+[INFO] Partition fold 2: train=62, test=16
+[INFO] Partition fold 3: train=62, test=16
+[INFO] Partition fold 4: train=63, test=15
+[INFO] Partition fold 5: train=63, test=15
+
+========== OUTER FOLD 1/5 ==========
+[INFO] Outer fold train size: 62
+[INFO] Outer fold test size: 16
+
+========== HYPERPARAMETER TUNING ==========
+[INFO] Generated 5 inner folds for hyperparameter tuning.
+[INFO] Total hyperparameter combinations: 1
+[INFO] Testing hyperparameter combo 1/1: lr=0.001, dropout=0.3, weight_decay=0.0
+[INFO]   Inner fold 1/5
+[INFO] Building model: DGCN with input_dim=211, num_classes=2, dropout=0.3
+[INFO] Training with lr=0.001, weight_decay=0.0
+[INFO] Epoch 1/100 | train_loss=0.679094, train_mis=0.428571 | val_loss=0.636204, val_mis=0.230769
+[INFO] New best validation misclassification: 0.230769 at epoch 1
+[INFO] Epoch 2/100 | train_loss=0.575916, train_mis=0.163265 | val_loss=0.442735, val_mis=0.000000
+[INFO] New best validation misclassification: 0.000000 at epoch 2
+[INFO] Epoch 3/100 | train_loss=0.337161, train_mis=0.000000 | val_loss=0.179948, val_mis=0.000000
+[INFO] Epoch 4/100 | train_loss=0.111055, train_mis=0.000000 | val_loss=0.043970, val_mis=0.000000
+[INFO] Epoch 5/100 | train_loss=0.023822, train_mis=0.000000 | val_loss=0.010931, val_mis=0.000000
+[INFO] Epoch 6/100 | train_loss=0.009274, train_mis=0.000000 | val_loss=0.004663, val_mis=0.000000
+[INFO] Epoch 7/100 | train_loss=0.010667, train_mis=0.000000 | val_loss=0.002616, val_mis=0.000000
+[INFO] Epoch 8/100 | train_loss=0.003588, train_mis=0.000000 | val_loss=0.001825, val_mis=0.000000
+[INFO] Epoch 9/100 | train_loss=0.009477, train_mis=0.000000 | val_loss=0.001390, val_mis=0.000000
+[INFO] Epoch 10/100 | train_loss=0.001492, train_mis=0.000000 | val_loss=0.000979, val_mis=0.000000
+[INFO] Epoch 11/100 | train_loss=0.001819, train_mis=0.000000 | val_loss=0.000807, val_mis=0.000000
+[INFO] Epoch 12/100 | train_loss=0.003284, train_mis=0.000000 | val_loss=0.000653, val_mis=0.000000
+[INFO] Early stopping triggered at epoch 12
+[INFO]   Inner fold 2/5
+[INFO] Building model: DGCN with input_dim=211, num_classes=2, dropout=0.3
+[INFO] Training with lr=0.001, weight_decay=0.0
+[INFO] Epoch 1/100 | train_loss=0.675869, train_mis=0.408163 | val_loss=0.627953, val_mis=0.000000
+[INFO] New best validation misclassification: 0.000000 at epoch 1
+[INFO] Epoch 2/100 | train_loss=0.536145, train_mis=0.061224 | val_loss=0.401172, val_mis=0.000000
+[INFO] Epoch 3/100 | train_loss=0.291169, train_mis=0.000000 | val_loss=0.164446, val_mis=0.000000
+[INFO] Epoch 4/100 | train_loss=0.103663, train_mis=0.000000 | val_loss=0.063060, val_mis=0.000000
+[INFO] Epoch 5/100 | train_loss=0.029812, train_mis=0.000000 | val_loss=0.009324, val_mis=0.000000
+[INFO] Epoch 6/100 | train_loss=0.010553, train_mis=0.000000 | val_loss=0.003409, val_mis=0.000000
+[INFO] Epoch 7/100 | train_loss=0.004238, train_mis=0.000000 | val_loss=0.001855, val_mis=0.000000
+[INFO] Epoch 8/100 | train_loss=0.003975, train_mis=0.000000 | val_loss=0.001197, val_mis=0.000000
+[INFO] Epoch 9/100 | train_loss=0.001150, train_mis=0.000000 | val_loss=0.000908, val_mis=0.000000
+[INFO] Epoch 10/100 | train_loss=0.001763, train_mis=0.000000 | val_loss=0.000746, val_mis=0.000000
+[INFO] Epoch 11/100 | train_loss=0.006554, train_mis=0.000000 | val_loss=0.000549, val_mis=0.000000
+[INFO] Early stopping triggered at epoch 11
+[INFO]   Inner fold 3/5
+[INFO] Building model: DGCN with input_dim=211, num_classes=2, dropout=0.3
+[INFO] Training with lr=0.001, weight_decay=0.0
+[INFO] Epoch 1/100 | train_loss=0.686020, train_mis=0.440000 | val_loss=0.641896, val_mis=0.416667
+[INFO] New best validation misclassification: 0.416667 at epoch 1
+[INFO] Epoch 2/100 | train_loss=0.577839, train_mis=0.220000 | val_loss=0.482815, val_mis=0.000000
+[INFO] New best validation misclassification: 0.000000 at epoch 2
+[INFO] Epoch 3/100 | train_loss=0.361926, train_mis=0.020000 | val_loss=0.263937, val_mis=0.000000
+[INFO] Epoch 4/100 | train_loss=0.149215, train_mis=0.000000 | val_loss=0.099381, val_mis=0.000000
+[INFO] Epoch 5/100 | train_loss=0.048767, train_mis=0.000000 | val_loss=0.015704, val_mis=0.000000
+[INFO] Epoch 6/100 | train_loss=0.027194, train_mis=0.000000 | val_loss=0.004988, val_mis=0.000000
+[INFO] Epoch 7/100 | train_loss=0.007301, train_mis=0.000000 | val_loss=0.002210, val_mis=0.000000
+[INFO] Epoch 8/100 | train_loss=0.004928, train_mis=0.000000 | val_loss=0.001247, val_mis=0.000000
+[INFO] Epoch 9/100 | train_loss=0.004291, train_mis=0.000000 | val_loss=0.000797, val_mis=0.000000
+[INFO] Epoch 10/100 | train_loss=0.002071, train_mis=0.000000 | val_loss=0.000613, val_mis=0.000000
+[INFO] Epoch 11/100 | train_loss=0.000681, train_mis=0.000000 | val_loss=0.000497, val_mis=0.000000
+[INFO] Epoch 12/100 | train_loss=0.001341, train_mis=0.000000 | val_loss=0.000429, val_mis=0.000000
+[INFO] Early stopping triggered at epoch 12
+[INFO]   Inner fold 4/5
+[INFO] Building model: DGCN with input_dim=211, num_classes=2, dropout=0.3
+[INFO] Training with lr=0.001, weight_decay=0.0
+[INFO] Epoch 1/100 | train_loss=0.686902, train_mis=0.380000 | val_loss=0.655085, val_mis=0.000000
+[INFO] New best validation misclassification: 0.000000 at epoch 1
+[INFO] Epoch 2/100 | train_loss=0.594034, train_mis=0.080000 | val_loss=0.510053, val_mis=0.000000
+[INFO] Epoch 3/100 | train_loss=0.386470, train_mis=0.040000 | val_loss=0.222017, val_mis=0.000000
+[INFO] Epoch 4/100 | train_loss=0.160388, train_mis=0.020000 | val_loss=0.055173, val_mis=0.000000
+[INFO] Epoch 5/100 | train_loss=0.042230, train_mis=0.000000 | val_loss=0.012052, val_mis=0.000000
+[INFO] Epoch 6/100 | train_loss=0.012775, train_mis=0.000000 | val_loss=0.003857, val_mis=0.000000
+[INFO] Epoch 7/100 | train_loss=0.008258, train_mis=0.000000 | val_loss=0.001797, val_mis=0.000000
+[INFO] Epoch 8/100 | train_loss=0.002164, train_mis=0.000000 | val_loss=0.001126, val_mis=0.000000
+[INFO] Epoch 9/100 | train_loss=0.003872, train_mis=0.000000 | val_loss=0.000801, val_mis=0.000000
+[INFO] Epoch 10/100 | train_loss=0.002178, train_mis=0.000000 | val_loss=0.000620, val_mis=0.000000
+[INFO] Epoch 11/100 | train_loss=0.000797, train_mis=0.000000 | val_loss=0.000504, val_mis=0.000000
+[INFO] Early stopping triggered at epoch 11
+[INFO]   Inner fold 5/5
+[INFO] Building model: DGCN with input_dim=211, num_classes=2, dropout=0.3
+[INFO] Training with lr=0.001, weight_decay=0.0
+[INFO] Epoch 1/100 | train_loss=0.687938, train_mis=0.380000 | val_loss=0.683840, val_mis=0.500000
+[INFO] New best validation misclassification: 0.500000 at epoch 1
+[INFO] Epoch 2/100 | train_loss=0.650093, train_mis=0.320000 | val_loss=0.584518, val_mis=0.000000
+[INFO] New best validation misclassification: 0.000000 at epoch 2
+[INFO] Epoch 3/100 | train_loss=0.478986, train_mis=0.000000 | val_loss=0.304182, val_mis=0.000000
+[INFO] Epoch 4/100 | train_loss=0.195206, train_mis=0.000000 | val_loss=0.076832, val_mis=0.000000
+[INFO] Epoch 5/100 | train_loss=0.047098, train_mis=0.000000 | val_loss=0.013978, val_mis=0.000000
+[INFO] Epoch 6/100 | train_loss=0.012579, train_mis=0.000000 | val_loss=0.003505, val_mis=0.000000
+[INFO] Epoch 7/100 | train_loss=0.006110, train_mis=0.000000 | val_loss=0.001410, val_mis=0.000000
+[INFO] Epoch 8/100 | train_loss=0.002607, train_mis=0.000000 | val_loss=0.000782, val_mis=0.000000
+[INFO] Epoch 9/100 | train_loss=0.001074, train_mis=0.000000 | val_loss=0.000564, val_mis=0.000000
+[INFO] Epoch 10/100 | train_loss=0.001046, train_mis=0.000000 | val_loss=0.000458, val_mis=0.000000
+[INFO] Epoch 11/100 | train_loss=0.000929, train_mis=0.000000 | val_loss=0.000401, val_mis=0.000000
+[INFO] Epoch 12/100 | train_loss=0.000958, train_mis=0.000000 | val_loss=0.000346, val_mis=0.000000
+[INFO] Early stopping triggered at epoch 12
+[INFO]   Mean inner validation misclassification: 0.000000
+[INFO]   -> New best hyperparameter setting found.
+[INFO] Selected hyperparameters for fold 1: {'lr': 0.001, 'dropout': 0.3, 'weight_decay': 0.0, 'mean_inner_val_misclass': 0.0}
+[INFO] Building final model for this outer fold.
+[INFO] Building model: DGCN with input_dim=211, num_classes=2, dropout=0.3
+[INFO] Training final model on outer-train split.
+[INFO] Training with lr=0.001, weight_decay=0.0
+[INFO] Epoch 1/100 | train_loss=0.659259, train_mis=0.326531 | val_loss=0.606410, val_mis=0.000000
+[INFO] New best validation misclassification: 0.000000 at epoch 1
+[INFO] Epoch 2/100 | train_loss=0.505787, train_mis=0.040816 | val_loss=0.381362, val_mis=0.000000
+[INFO] Epoch 3/100 | train_loss=0.268830, train_mis=0.000000 | val_loss=0.146080, val_mis=0.000000
+[INFO] Epoch 4/100 | train_loss=0.073238, train_mis=0.000000 | val_loss=0.030789, val_mis=0.000000
+[INFO] Epoch 5/100 | train_loss=0.026964, train_mis=0.000000 | val_loss=0.008441, val_mis=0.000000
+[INFO] Epoch 6/100 | train_loss=0.012032, train_mis=0.000000 | val_loss=0.003331, val_mis=0.000000
+[INFO] Epoch 7/100 | train_loss=0.006878, train_mis=0.000000 | val_loss=0.001731, val_mis=0.000000
+[INFO] Epoch 8/100 | train_loss=0.004198, train_mis=0.000000 | val_loss=0.001142, val_mis=0.000000
+[INFO] Epoch 9/100 | train_loss=0.003788, train_mis=0.000000 | val_loss=0.000836, val_mis=0.000000
+[INFO] Epoch 10/100 | train_loss=0.003850, train_mis=0.000000 | val_loss=0.000632, val_mis=0.000000
+[INFO] Epoch 11/100 | train_loss=0.000983, train_mis=0.000000 | val_loss=0.000467, val_mis=0.000000
+[INFO] Early stopping triggered at epoch 11
+[INFO] Evaluating on outer-test split.
+[INFO] Fold 1 test loss: 0.604754
+[INFO] Fold 1 test misclassification: 0.000000
+
+========== OUTER FOLD 2/5 ==========
+[INFO] Outer fold train size: 62
+[INFO] Outer fold test size: 16
+
+========== HYPERPARAMETER TUNING ==========
+[INFO] Generated 5 inner folds for hyperparameter tuning.
+[INFO] Total hyperparameter combinations: 1
+[INFO] Testing hyperparameter combo 1/1: lr=0.001, dropout=0.3, weight_decay=0.0
+[INFO]   Inner fold 1/5
+[INFO] Building model: DGCN with input_dim=211, num_classes=2, dropout=0.3
+[INFO] Training with lr=0.001, weight_decay=0.0
+[INFO] Epoch 1/100 | train_loss=0.698660, train_mis=0.489796 | val_loss=0.678745, val_mis=0.076923
+[INFO] New best validation misclassification: 0.076923 at epoch 1
+[INFO] Epoch 2/100 | train_loss=0.689972, train_mis=0.448980 | val_loss=0.668051, val_mis=0.461538
+[INFO] Epoch 3/100 | train_loss=0.652864, train_mis=0.142857 | val_loss=0.590560, val_mis=0.000000
+[INFO] New best validation misclassification: 0.000000 at epoch 3
+[INFO] Epoch 4/100 | train_loss=0.534101, train_mis=0.061224 | val_loss=0.396003, val_mis=0.000000
+[INFO] Epoch 5/100 | train_loss=0.338962, train_mis=0.000000 | val_loss=0.217145, val_mis=0.000000
+[INFO] Epoch 6/100 | train_loss=0.203326, train_mis=0.040816 | val_loss=0.087976, val_mis=0.000000
+[INFO] Epoch 7/100 | train_loss=0.071568, train_mis=0.000000 | val_loss=0.021944, val_mis=0.000000
+[INFO] Epoch 8/100 | train_loss=0.014131, train_mis=0.000000 | val_loss=0.005891, val_mis=0.000000
+[INFO] Epoch 9/100 | train_loss=0.012655, train_mis=0.000000 | val_loss=0.002294, val_mis=0.000000
+[INFO] Epoch 10/100 | train_loss=0.010648, train_mis=0.000000 | val_loss=0.001234, val_mis=0.000000
+[INFO] Epoch 11/100 | train_loss=0.009038, train_mis=0.000000 | val_loss=0.000803, val_mis=0.000000
+[INFO] Epoch 12/100 | train_loss=0.004111, train_mis=0.000000 | val_loss=0.000549, val_mis=0.000000
+[INFO] Epoch 13/100 | train_loss=0.008596, train_mis=0.000000 | val_loss=0.000326, val_mis=0.000000
+[INFO] Early stopping triggered at epoch 13
+[INFO]   Inner fold 2/5
+[INFO] Building model: DGCN with input_dim=211, num_classes=2, dropout=0.3
+[INFO] Training with lr=0.001, weight_decay=0.0
+[INFO] Epoch 1/100 | train_loss=0.662656, train_mis=0.448980 | val_loss=0.617641, val_mis=0.461538
+[INFO] New best validation misclassification: 0.461538 at epoch 1
+[INFO] Epoch 2/100 | train_loss=0.504846, train_mis=0.163265 | val_loss=0.468478, val_mis=0.153846
+[INFO] New best validation misclassification: 0.153846 at epoch 2
+[INFO] Epoch 3/100 | train_loss=0.318791, train_mis=0.040816 | val_loss=0.237025, val_mis=0.000000
+[INFO] New best validation misclassification: 0.000000 at epoch 3
+[INFO] Epoch 4/100 | train_loss=0.144701, train_mis=0.000000 | val_loss=0.078487, val_mis=0.000000
+[INFO] Epoch 5/100 | train_loss=0.070671, train_mis=0.000000 | val_loss=0.025023, val_mis=0.000000
+[INFO] Epoch 6/100 | train_loss=0.023129, train_mis=0.000000 | val_loss=0.007676, val_mis=0.000000
+[INFO] Epoch 7/100 | train_loss=0.009457, train_mis=0.000000 | val_loss=0.003308, val_mis=0.000000
+[INFO] Epoch 8/100 | train_loss=0.005819, train_mis=0.000000 | val_loss=0.001959, val_mis=0.000000
+[INFO] Epoch 9/100 | train_loss=0.006213, train_mis=0.000000 | val_loss=0.001223, val_mis=0.000000
+[INFO] Epoch 10/100 | train_loss=0.001997, train_mis=0.000000 | val_loss=0.000844, val_mis=0.000000
+[INFO] Epoch 11/100 | train_loss=0.002899, train_mis=0.000000 | val_loss=0.000648, val_mis=0.000000
+[INFO] Epoch 12/100 | train_loss=0.006858, train_mis=0.000000 | val_loss=0.000500, val_mis=0.000000
+[INFO] Epoch 13/100 | train_loss=0.002919, train_mis=0.000000 | val_loss=0.000399, val_mis=0.000000
+[INFO] Early stopping triggered at epoch 13
+[INFO]   Inner fold 3/5
+[INFO] Building model: DGCN with input_dim=211, num_classes=2, dropout=0.3
+[INFO] Training with lr=0.001, weight_decay=0.0
+[INFO] Epoch 1/100 | train_loss=0.685115, train_mis=0.440000 | val_loss=0.642587, val_mis=0.166667
+[INFO] New best validation misclassification: 0.166667 at epoch 1
+[INFO] Epoch 2/100 | train_loss=0.593302, train_mis=0.060000 | val_loss=0.489648, val_mis=0.000000
+[INFO] New best validation misclassification: 0.000000 at epoch 2
+[INFO] Epoch 3/100 | train_loss=0.380363, train_mis=0.020000 | val_loss=0.261650, val_mis=0.000000
+[INFO] Epoch 4/100 | train_loss=0.167342, train_mis=0.000000 | val_loss=0.076752, val_mis=0.000000
+[INFO] Epoch 5/100 | train_loss=0.071349, train_mis=0.020000 | val_loss=0.016514, val_mis=0.000000
+[INFO] Epoch 6/100 | train_loss=0.015341, train_mis=0.000000 | val_loss=0.007936, val_mis=0.000000
+[INFO] Epoch 7/100 | train_loss=0.011360, train_mis=0.000000 | val_loss=0.002786, val_mis=0.000000
+[INFO] Epoch 8/100 | train_loss=0.008555, train_mis=0.000000 | val_loss=0.001543, val_mis=0.000000
+[INFO] Epoch 9/100 | train_loss=0.003852, train_mis=0.000000 | val_loss=0.001071, val_mis=0.000000
+[INFO] Epoch 10/100 | train_loss=0.002990, train_mis=0.000000 | val_loss=0.000815, val_mis=0.000000
+[INFO] Epoch 11/100 | train_loss=0.008654, train_mis=0.000000 | val_loss=0.000662, val_mis=0.000000
+[INFO] Epoch 12/100 | train_loss=0.001400, train_mis=0.000000 | val_loss=0.000534, val_mis=0.000000
+[INFO] Early stopping triggered at epoch 12
+[INFO]   Inner fold 4/5
+[INFO] Building model: DGCN with input_dim=211, num_classes=2, dropout=0.3
+[INFO] Training with lr=0.001, weight_decay=0.0
+[INFO] Epoch 1/100 | train_loss=0.689578, train_mis=0.400000 | val_loss=0.646494, val_mis=0.083333
+[INFO] New best validation misclassification: 0.083333 at epoch 1
+[INFO] Epoch 2/100 | train_loss=0.560661, train_mis=0.180000 | val_loss=0.458332, val_mis=0.083333
+[INFO] Epoch 3/100 | train_loss=0.381355, train_mis=0.020000 | val_loss=0.281303, val_mis=0.000000
+[INFO] New best validation misclassification: 0.000000 at epoch 3
+[INFO] Epoch 4/100 | train_loss=0.186861, train_mis=0.000000 | val_loss=0.211680, val_mis=0.083333
+[INFO] Epoch 5/100 | train_loss=0.067014, train_mis=0.000000 | val_loss=0.023108, val_mis=0.000000
+[INFO] Epoch 6/100 | train_loss=0.018868, train_mis=0.000000 | val_loss=0.005008, val_mis=0.000000
+[INFO] Epoch 7/100 | train_loss=0.010270, train_mis=0.000000 | val_loss=0.001756, val_mis=0.000000
+[INFO] Epoch 8/100 | train_loss=0.001782, train_mis=0.000000 | val_loss=0.000988, val_mis=0.000000
+[INFO] Epoch 9/100 | train_loss=0.001642, train_mis=0.000000 | val_loss=0.000715, val_mis=0.000000
+[INFO] Epoch 10/100 | train_loss=0.000603, train_mis=0.000000 | val_loss=0.000596, val_mis=0.000000
+[INFO] Epoch 11/100 | train_loss=0.001202, train_mis=0.000000 | val_loss=0.000512, val_mis=0.000000
+[INFO] Epoch 12/100 | train_loss=0.000739, train_mis=0.000000 | val_loss=0.000448, val_mis=0.000000
+[INFO] Epoch 13/100 | train_loss=0.001986, train_mis=0.000000 | val_loss=0.000385, val_mis=0.000000
+[INFO] Early stopping triggered at epoch 13
+[INFO]   Inner fold 5/5
+[INFO] Building model: DGCN with input_dim=211, num_classes=2, dropout=0.3
+[INFO] Training with lr=0.001, weight_decay=0.0
+[INFO] Epoch 1/100 | train_loss=0.679483, train_mis=0.500000 | val_loss=0.637119, val_mis=0.250000
+[INFO] New best validation misclassification: 0.250000 at epoch 1
+[INFO] Epoch 2/100 | train_loss=0.583411, train_mis=0.200000 | val_loss=0.498279, val_mis=0.000000
+[INFO] New best validation misclassification: 0.000000 at epoch 2
+[INFO] Epoch 3/100 | train_loss=0.421138, train_mis=0.020000 | val_loss=0.303620, val_mis=0.000000
+[INFO] Epoch 4/100 | train_loss=0.221111, train_mis=0.000000 | val_loss=0.146373, val_mis=0.000000
+[INFO] Epoch 5/100 | train_loss=0.095251, train_mis=0.000000 | val_loss=0.047078, val_mis=0.000000
+[INFO] Epoch 6/100 | train_loss=0.034600, train_mis=0.000000 | val_loss=0.013844, val_mis=0.000000
+[INFO] Epoch 7/100 | train_loss=0.008783, train_mis=0.000000 | val_loss=0.005613, val_mis=0.000000
+[INFO] Epoch 8/100 | train_loss=0.012606, train_mis=0.000000 | val_loss=0.002685, val_mis=0.000000
+[INFO] Epoch 9/100 | train_loss=0.005854, train_mis=0.000000 | val_loss=0.001475, val_mis=0.000000
+[INFO] Epoch 10/100 | train_loss=0.005045, train_mis=0.000000 | val_loss=0.000981, val_mis=0.000000
+[INFO] Epoch 11/100 | train_loss=0.004766, train_mis=0.000000 | val_loss=0.000683, val_mis=0.000000
+[INFO] Epoch 12/100 | train_loss=0.002276, train_mis=0.000000 | val_loss=0.000508, val_mis=0.000000
+[INFO] Early stopping triggered at epoch 12
+[INFO]   Mean inner validation misclassification: 0.000000
+[INFO]   -> New best hyperparameter setting found.
+[INFO] Selected hyperparameters for fold 2: {'lr': 0.001, 'dropout': 0.3, 'weight_decay': 0.0, 'mean_inner_val_misclass': 0.0}
+[INFO] Building final model for this outer fold.
+[INFO] Building model: DGCN with input_dim=211, num_classes=2, dropout=0.3
+[INFO] Training final model on outer-train split.
+[INFO] Training with lr=0.001, weight_decay=0.0
+[INFO] Epoch 1/100 | train_loss=0.678853, train_mis=0.387755 | val_loss=0.626106, val_mis=0.000000
+[INFO] New best validation misclassification: 0.000000 at epoch 1
+[INFO] Epoch 2/100 | train_loss=0.568381, train_mis=0.040816 | val_loss=0.442039, val_mis=0.000000
+[INFO] Epoch 3/100 | train_loss=0.369914, train_mis=0.020408 | val_loss=0.216069, val_mis=0.000000
+[INFO] Epoch 4/100 | train_loss=0.229180, train_mis=0.061224 | val_loss=0.080220, val_mis=0.000000
+[INFO] Epoch 5/100 | train_loss=0.212458, train_mis=0.061224 | val_loss=0.043764, val_mis=0.000000
+[INFO] Epoch 6/100 | train_loss=0.057055, train_mis=0.000000 | val_loss=0.046192, val_mis=0.000000
+[INFO] Epoch 7/100 | train_loss=0.048314, train_mis=0.000000 | val_loss=0.019178, val_mis=0.000000
+[INFO] Epoch 8/100 | train_loss=0.021291, train_mis=0.000000 | val_loss=0.009080, val_mis=0.000000
+[INFO] Epoch 9/100 | train_loss=0.021709, train_mis=0.000000 | val_loss=0.005026, val_mis=0.000000
+[INFO] Epoch 10/100 | train_loss=0.008866, train_mis=0.000000 | val_loss=0.003274, val_mis=0.000000
+[INFO] Epoch 11/100 | train_loss=0.007001, train_mis=0.000000 | val_loss=0.002259, val_mis=0.000000
+[INFO] Early stopping triggered at epoch 11
+[INFO] Evaluating on outer-test split.
+[INFO] Fold 2 test loss: 0.637350
+[INFO] Fold 2 test misclassification: 0.000000
+
+========== OUTER FOLD 3/5 ==========
+[INFO] Outer fold train size: 62
+[INFO] Outer fold test size: 16
+
+========== HYPERPARAMETER TUNING ==========
+[INFO] Generated 5 inner folds for hyperparameter tuning.
+[INFO] Total hyperparameter combinations: 1
+[INFO] Testing hyperparameter combo 1/1: lr=0.001, dropout=0.3, weight_decay=0.0
+[INFO]   Inner fold 1/5
+[INFO] Building model: DGCN with input_dim=211, num_classes=2, dropout=0.3
+[INFO] Training with lr=0.001, weight_decay=0.0
+[INFO] Epoch 1/100 | train_loss=0.658761, train_mis=0.285714 | val_loss=0.600124, val_mis=0.076923
+[INFO] New best validation misclassification: 0.076923 at epoch 1
+[INFO] Epoch 2/100 | train_loss=0.528015, train_mis=0.040816 | val_loss=0.376974, val_mis=0.000000
+[INFO] New best validation misclassification: 0.000000 at epoch 2
+[INFO] Epoch 3/100 | train_loss=0.277410, train_mis=0.020408 | val_loss=0.129961, val_mis=0.000000
+[INFO] Epoch 4/100 | train_loss=0.079106, train_mis=0.000000 | val_loss=0.030921, val_mis=0.000000
+[INFO] Epoch 5/100 | train_loss=0.034657, train_mis=0.000000 | val_loss=0.008620, val_mis=0.000000
+[INFO] Epoch 6/100 | train_loss=0.013238, train_mis=0.000000 | val_loss=0.003156, val_mis=0.000000
+[INFO] Epoch 7/100 | train_loss=0.005476, train_mis=0.000000 | val_loss=0.001589, val_mis=0.000000
+[INFO] Epoch 8/100 | train_loss=0.004838, train_mis=0.000000 | val_loss=0.000974, val_mis=0.000000
+[INFO] Epoch 9/100 | train_loss=0.006627, train_mis=0.000000 | val_loss=0.000668, val_mis=0.000000
+[INFO] Epoch 10/100 | train_loss=0.001630, train_mis=0.000000 | val_loss=0.000528, val_mis=0.000000
+[INFO] Epoch 11/100 | train_loss=0.003486, train_mis=0.000000 | val_loss=0.000397, val_mis=0.000000
+[INFO] Epoch 12/100 | train_loss=0.002162, train_mis=0.000000 | val_loss=0.000313, val_mis=0.000000
+[INFO] Early stopping triggered at epoch 12
+[INFO]   Inner fold 2/5
+[INFO] Building model: DGCN with input_dim=211, num_classes=2, dropout=0.3
+[INFO] Training with lr=0.001, weight_decay=0.0
+[INFO] Epoch 1/100 | train_loss=0.637216, train_mis=0.367347 | val_loss=0.550097, val_mis=0.076923
+[INFO] New best validation misclassification: 0.076923 at epoch 1
+[INFO] Epoch 2/100 | train_loss=0.418078, train_mis=0.020408 | val_loss=0.268707, val_mis=0.000000
+[INFO] New best validation misclassification: 0.000000 at epoch 2
+[INFO] Epoch 3/100 | train_loss=0.166127, train_mis=0.000000 | val_loss=0.087677, val_mis=0.000000
+[INFO] Epoch 4/100 | train_loss=0.051948, train_mis=0.000000 | val_loss=0.017166, val_mis=0.000000
+[INFO] Epoch 5/100 | train_loss=0.014297, train_mis=0.000000 | val_loss=0.004931, val_mis=0.000000
+[INFO] Epoch 6/100 | train_loss=0.007437, train_mis=0.000000 | val_loss=0.002314, val_mis=0.000000
+[INFO] Epoch 7/100 | train_loss=0.004387, train_mis=0.000000 | val_loss=0.001636, val_mis=0.000000
+[INFO] Epoch 8/100 | train_loss=0.001594, train_mis=0.000000 | val_loss=0.001547, val_mis=0.000000
+[INFO] Epoch 9/100 | train_loss=0.001379, train_mis=0.000000 | val_loss=0.001576, val_mis=0.000000
+[INFO] Epoch 10/100 | train_loss=0.001453, train_mis=0.000000 | val_loss=0.001261, val_mis=0.000000
+[INFO] Epoch 11/100 | train_loss=0.002674, train_mis=0.000000 | val_loss=0.000921, val_mis=0.000000
+[INFO] Epoch 12/100 | train_loss=0.001407, train_mis=0.000000 | val_loss=0.000778, val_mis=0.000000
+[INFO] Early stopping triggered at epoch 12
+[INFO]   Inner fold 3/5
+[INFO] Building model: DGCN with input_dim=211, num_classes=2, dropout=0.3
+[INFO] Training with lr=0.001, weight_decay=0.0
+[INFO] Epoch 1/100 | train_loss=0.692060, train_mis=0.440000 | val_loss=0.645514, val_mis=0.000000
+[INFO] New best validation misclassification: 0.000000 at epoch 1
+[INFO] Epoch 2/100 | train_loss=0.579750, train_mis=0.040000 | val_loss=0.478342, val_mis=0.000000
+[INFO] Epoch 3/100 | train_loss=0.384958, train_mis=0.000000 | val_loss=0.238804, val_mis=0.000000
+[INFO] Epoch 4/100 | train_loss=0.155995, train_mis=0.000000 | val_loss=0.126768, val_mis=0.083333
+[INFO] Epoch 5/100 | train_loss=0.047971, train_mis=0.000000 | val_loss=0.017125, val_mis=0.000000
+[INFO] Epoch 6/100 | train_loss=0.019262, train_mis=0.000000 | val_loss=0.120144, val_mis=0.083333
+[INFO] Epoch 7/100 | train_loss=0.170489, train_mis=0.040000 | val_loss=0.006210, val_mis=0.000000
+[INFO] Epoch 8/100 | train_loss=0.007493, train_mis=0.000000 | val_loss=0.004127, val_mis=0.000000
+[INFO] Epoch 9/100 | train_loss=0.009093, train_mis=0.000000 | val_loss=0.034071, val_mis=0.000000
+[INFO] Epoch 10/100 | train_loss=0.005705, train_mis=0.000000 | val_loss=0.055679, val_mis=0.000000
+[INFO] Epoch 11/100 | train_loss=0.008082, train_mis=0.000000 | val_loss=0.006568, val_mis=0.000000
+[INFO] Early stopping triggered at epoch 11
+[INFO]   Inner fold 4/5
+[INFO] Building model: DGCN with input_dim=211, num_classes=2, dropout=0.3
+[INFO] Training with lr=0.001, weight_decay=0.0
+[INFO] Epoch 1/100 | train_loss=0.679868, train_mis=0.460000 | val_loss=0.659267, val_mis=0.416667
+[INFO] New best validation misclassification: 0.416667 at epoch 1
+[INFO] Epoch 2/100 | train_loss=0.618343, train_mis=0.260000 | val_loss=0.511801, val_mis=0.000000
+[INFO] New best validation misclassification: 0.000000 at epoch 2
+[INFO] Epoch 3/100 | train_loss=0.383074, train_mis=0.000000 | val_loss=0.241345, val_mis=0.000000
+[INFO] Epoch 4/100 | train_loss=0.124022, train_mis=0.000000 | val_loss=0.060148, val_mis=0.000000
+[INFO] Epoch 5/100 | train_loss=0.050779, train_mis=0.000000 | val_loss=0.012892, val_mis=0.000000
+[INFO] Epoch 6/100 | train_loss=0.011273, train_mis=0.000000 | val_loss=0.004320, val_mis=0.000000
+[INFO] Epoch 7/100 | train_loss=0.003927, train_mis=0.000000 | val_loss=0.002256, val_mis=0.000000
+[INFO] Epoch 8/100 | train_loss=0.001831, train_mis=0.000000 | val_loss=0.001591, val_mis=0.000000
+[INFO] Epoch 9/100 | train_loss=0.001372, train_mis=0.000000 | val_loss=0.001276, val_mis=0.000000
+[INFO] Epoch 10/100 | train_loss=0.002396, train_mis=0.000000 | val_loss=0.001074, val_mis=0.000000
+[INFO] Epoch 11/100 | train_loss=0.004112, train_mis=0.000000 | val_loss=0.000863, val_mis=0.000000
+[INFO] Epoch 12/100 | train_loss=0.001964, train_mis=0.000000 | val_loss=0.000705, val_mis=0.000000
+[INFO] Early stopping triggered at epoch 12
+[INFO]   Inner fold 5/5
+[INFO] Building model: DGCN with input_dim=211, num_classes=2, dropout=0.3
+[INFO] Training with lr=0.001, weight_decay=0.0
+[INFO] Epoch 1/100 | train_loss=0.682883, train_mis=0.440000 | val_loss=0.680127, val_mis=0.500000
+[INFO] New best validation misclassification: 0.500000 at epoch 1
+[INFO] Epoch 2/100 | train_loss=0.634236, train_mis=0.360000 | val_loss=0.556738, val_mis=0.000000
+[INFO] New best validation misclassification: 0.000000 at epoch 2
+[INFO] Epoch 3/100 | train_loss=0.495250, train_mis=0.080000 | val_loss=0.390072, val_mis=0.000000
+[INFO] Epoch 4/100 | train_loss=0.282769, train_mis=0.000000 | val_loss=0.175522, val_mis=0.000000
+[INFO] Epoch 5/100 | train_loss=0.116268, train_mis=0.000000 | val_loss=0.057910, val_mis=0.000000
+[INFO] Epoch 6/100 | train_loss=0.045244, train_mis=0.000000 | val_loss=0.013155, val_mis=0.000000
+[INFO] Epoch 7/100 | train_loss=0.012655, train_mis=0.000000 | val_loss=0.004009, val_mis=0.000000
+[INFO] Epoch 8/100 | train_loss=0.005018, train_mis=0.000000 | val_loss=0.001868, val_mis=0.000000
+[INFO] Epoch 9/100 | train_loss=0.004907, train_mis=0.000000 | val_loss=0.001116, val_mis=0.000000
+[INFO] Epoch 10/100 | train_loss=0.002899, train_mis=0.000000 | val_loss=0.000769, val_mis=0.000000
+[INFO] Epoch 11/100 | train_loss=0.001333, train_mis=0.000000 | val_loss=0.000583, val_mis=0.000000
+[INFO] Epoch 12/100 | train_loss=0.000998, train_mis=0.000000 | val_loss=0.000478, val_mis=0.000000
+[INFO] Early stopping triggered at epoch 12
+[INFO]   Mean inner validation misclassification: 0.000000
+[INFO]   -> New best hyperparameter setting found.
+[INFO] Selected hyperparameters for fold 3: {'lr': 0.001, 'dropout': 0.3, 'weight_decay': 0.0, 'mean_inner_val_misclass': 0.0}
+[INFO] Building final model for this outer fold.
+[INFO] Building model: DGCN with input_dim=211, num_classes=2, dropout=0.3
+[INFO] Training final model on outer-train split.
+[INFO] Training with lr=0.001, weight_decay=0.0
+[INFO] Epoch 1/100 | train_loss=0.676465, train_mis=0.428571 | val_loss=0.641972, val_mis=0.384615
+[INFO] New best validation misclassification: 0.384615 at epoch 1
+[INFO] Epoch 2/100 | train_loss=0.596091, train_mis=0.265306 | val_loss=0.473742, val_mis=0.000000
+[INFO] New best validation misclassification: 0.000000 at epoch 2
+[INFO] Epoch 3/100 | train_loss=0.446793, train_mis=0.061224 | val_loss=0.284363, val_mis=0.000000
+[INFO] Epoch 4/100 | train_loss=0.202669, train_mis=0.000000 | val_loss=0.089036, val_mis=0.000000
+[INFO] Epoch 5/100 | train_loss=0.066198, train_mis=0.000000 | val_loss=0.017490, val_mis=0.000000
+[INFO] Epoch 6/100 | train_loss=0.069190, train_mis=0.020408 | val_loss=0.005189, val_mis=0.000000
+[INFO] Epoch 7/100 | train_loss=0.023853, train_mis=0.000000 | val_loss=0.004824, val_mis=0.000000
+[INFO] Epoch 8/100 | train_loss=0.125584, train_mis=0.040816 | val_loss=0.009993, val_mis=0.000000
+[INFO] Epoch 9/100 | train_loss=0.059290, train_mis=0.020408 | val_loss=0.004322, val_mis=0.000000
+[INFO] Epoch 10/100 | train_loss=0.009079, train_mis=0.000000 | val_loss=0.003024, val_mis=0.000000
+[INFO] Epoch 11/100 | train_loss=0.009913, train_mis=0.000000 | val_loss=0.212039, val_mis=0.076923
+[INFO] Epoch 12/100 | train_loss=0.358074, train_mis=0.163265 | val_loss=0.047314, val_mis=0.000000
+[INFO] Early stopping triggered at epoch 12
+[INFO] Evaluating on outer-test split.
+[INFO] Fold 3 test loss: 0.474384
+[INFO] Fold 3 test misclassification: 0.000000
+
+========== OUTER FOLD 4/5 ==========
+[INFO] Outer fold train size: 63
+[INFO] Outer fold test size: 15
+
+========== HYPERPARAMETER TUNING ==========
+[INFO] Generated 5 inner folds for hyperparameter tuning.
+[INFO] Total hyperparameter combinations: 1
+[INFO] Testing hyperparameter combo 1/1: lr=0.001, dropout=0.3, weight_decay=0.0
+[INFO]   Inner fold 1/5
+[INFO] Building model: DGCN with input_dim=211, num_classes=2, dropout=0.3
+[INFO] Training with lr=0.001, weight_decay=0.0
+[INFO] Epoch 1/100 | train_loss=0.703140, train_mis=0.480000 | val_loss=0.675222, val_mis=0.461538
+[INFO] New best validation misclassification: 0.461538 at epoch 1
+[INFO] Epoch 2/100 | train_loss=0.655882, train_mis=0.420000 | val_loss=0.607358, val_mis=0.307692
+[INFO] New best validation misclassification: 0.307692 at epoch 2
+[INFO] Epoch 3/100 | train_loss=0.545542, train_mis=0.120000 | val_loss=0.428882, val_mis=0.000000
+[INFO] New best validation misclassification: 0.000000 at epoch 3
+[INFO] Epoch 4/100 | train_loss=0.334725, train_mis=0.020000 | val_loss=0.203649, val_mis=0.000000
+[INFO] Epoch 5/100 | train_loss=0.116556, train_mis=0.000000 | val_loss=0.045575, val_mis=0.000000
+[INFO] Epoch 6/100 | train_loss=0.032468, train_mis=0.000000 | val_loss=0.006875, val_mis=0.000000
+[INFO] Epoch 7/100 | train_loss=0.006966, train_mis=0.000000 | val_loss=0.001918, val_mis=0.000000
+[INFO] Epoch 8/100 | train_loss=0.004958, train_mis=0.000000 | val_loss=0.000867, val_mis=0.000000
+[INFO] Epoch 9/100 | train_loss=0.001723, train_mis=0.000000 | val_loss=0.000553, val_mis=0.000000
+[INFO] Epoch 10/100 | train_loss=0.000809, train_mis=0.000000 | val_loss=0.000438, val_mis=0.000000
+[INFO] Epoch 11/100 | train_loss=0.001255, train_mis=0.000000 | val_loss=0.000371, val_mis=0.000000
+[INFO] Epoch 12/100 | train_loss=0.000945, train_mis=0.000000 | val_loss=0.000317, val_mis=0.000000
+[INFO] Epoch 13/100 | train_loss=0.000743, train_mis=0.000000 | val_loss=0.000278, val_mis=0.000000
+[INFO] Early stopping triggered at epoch 13
+[INFO]   Inner fold 2/5
+[INFO] Building model: DGCN with input_dim=211, num_classes=2, dropout=0.3
+[INFO] Training with lr=0.001, weight_decay=0.0
+[INFO] Epoch 1/100 | train_loss=0.682984, train_mis=0.340000 | val_loss=0.621945, val_mis=0.000000
+[INFO] New best validation misclassification: 0.000000 at epoch 1
+[INFO] Epoch 2/100 | train_loss=0.519472, train_mis=0.060000 | val_loss=0.408557, val_mis=0.000000
+[INFO] Epoch 3/100 | train_loss=0.296257, train_mis=0.000000 | val_loss=0.195425, val_mis=0.000000
+[INFO] Epoch 4/100 | train_loss=0.138990, train_mis=0.000000 | val_loss=0.227577, val_mis=0.076923
+[INFO] Epoch 5/100 | train_loss=0.081934, train_mis=0.020000 | val_loss=0.033582, val_mis=0.000000
+[INFO] Epoch 6/100 | train_loss=0.020966, train_mis=0.000000 | val_loss=0.063848, val_mis=0.000000
+[INFO] Epoch 7/100 | train_loss=0.040461, train_mis=0.020000 | val_loss=0.199920, val_mis=0.076923
+[INFO] Epoch 8/100 | train_loss=0.051852, train_mis=0.040000 | val_loss=0.010036, val_mis=0.000000
+[INFO] Epoch 9/100 | train_loss=0.015263, train_mis=0.000000 | val_loss=0.004985, val_mis=0.000000
+[INFO] Epoch 10/100 | train_loss=0.005179, train_mis=0.000000 | val_loss=0.003167, val_mis=0.000000
+[INFO] Epoch 11/100 | train_loss=0.005352, train_mis=0.000000 | val_loss=0.002305, val_mis=0.000000
+[INFO] Early stopping triggered at epoch 11
+[INFO]   Inner fold 3/5
+[INFO] Building model: DGCN with input_dim=211, num_classes=2, dropout=0.3
+[INFO] Training with lr=0.001, weight_decay=0.0
+[INFO] Epoch 1/100 | train_loss=0.649560, train_mis=0.280000 | val_loss=0.594676, val_mis=0.000000
+[INFO] New best validation misclassification: 0.000000 at epoch 1
+[INFO] Epoch 2/100 | train_loss=0.507266, train_mis=0.020000 | val_loss=0.371532, val_mis=0.000000
+[INFO] Epoch 3/100 | train_loss=0.281972, train_mis=0.000000 | val_loss=0.151682, val_mis=0.000000
+[INFO] Epoch 4/100 | train_loss=0.140482, train_mis=0.000000 | val_loss=0.044891, val_mis=0.000000
+[INFO] Epoch 5/100 | train_loss=0.036200, train_mis=0.000000 | val_loss=0.013807, val_mis=0.000000
+[INFO] Epoch 6/100 | train_loss=0.017044, train_mis=0.000000 | val_loss=0.005041, val_mis=0.000000
+[INFO] Epoch 7/100 | train_loss=0.108019, train_mis=0.020000 | val_loss=0.004057, val_mis=0.000000
+[INFO] Epoch 8/100 | train_loss=0.005573, train_mis=0.000000 | val_loss=0.014713, val_mis=0.000000
+[INFO] Epoch 9/100 | train_loss=0.008524, train_mis=0.000000 | val_loss=0.014003, val_mis=0.000000
+[INFO] Epoch 10/100 | train_loss=0.004186, train_mis=0.000000 | val_loss=0.007516, val_mis=0.000000
+[INFO] Epoch 11/100 | train_loss=0.003776, train_mis=0.000000 | val_loss=0.003818, val_mis=0.000000
+[INFO] Early stopping triggered at epoch 11
+[INFO]   Inner fold 4/5
+[INFO] Building model: DGCN with input_dim=211, num_classes=2, dropout=0.3
+[INFO] Training with lr=0.001, weight_decay=0.0
+[INFO] Epoch 1/100 | train_loss=0.676333, train_mis=0.450980 | val_loss=0.634610, val_mis=0.416667
+[INFO] New best validation misclassification: 0.416667 at epoch 1
+[INFO] Epoch 2/100 | train_loss=0.561205, train_mis=0.254902 | val_loss=0.439819, val_mis=0.083333
+[INFO] New best validation misclassification: 0.083333 at epoch 2
+[INFO] Epoch 3/100 | train_loss=0.321860, train_mis=0.000000 | val_loss=0.197113, val_mis=0.000000
+[INFO] New best validation misclassification: 0.000000 at epoch 3
+[INFO] Epoch 4/100 | train_loss=0.136962, train_mis=0.000000 | val_loss=0.056220, val_mis=0.000000
+[INFO] Epoch 5/100 | train_loss=0.041173, train_mis=0.000000 | val_loss=0.174353, val_mis=0.083333
+[INFO] Epoch 6/100 | train_loss=0.016237, train_mis=0.000000 | val_loss=0.263375, val_mis=0.083333
+[INFO] Epoch 7/100 | train_loss=0.008226, train_mis=0.000000 | val_loss=0.002427, val_mis=0.000000
+[INFO] Epoch 8/100 | train_loss=0.003076, train_mis=0.000000 | val_loss=0.001533, val_mis=0.000000
+[INFO] Epoch 9/100 | train_loss=0.006878, train_mis=0.000000 | val_loss=0.001097, val_mis=0.000000
+[INFO] Epoch 10/100 | train_loss=0.008085, train_mis=0.000000 | val_loss=0.000828, val_mis=0.000000
+[INFO] Epoch 11/100 | train_loss=2.213128, train_mis=0.372549 | val_loss=1.384219, val_mis=0.416667
+[INFO] Epoch 12/100 | train_loss=0.781930, train_mis=0.431373 | val_loss=1.122560, val_mis=0.583333
+[INFO] Epoch 13/100 | train_loss=0.877493, train_mis=0.470588 | val_loss=0.577687, val_mis=0.416667
+[INFO] Early stopping triggered at epoch 13
+[INFO]   Inner fold 5/5
+[INFO] Building model: DGCN with input_dim=211, num_classes=2, dropout=0.3
+[INFO] Training with lr=0.001, weight_decay=0.0
+[INFO] Epoch 1/100 | train_loss=0.696049, train_mis=0.490196 | val_loss=0.658999, val_mis=0.416667
+[INFO] New best validation misclassification: 0.416667 at epoch 1
+[INFO] Epoch 2/100 | train_loss=0.656683, train_mis=0.333333 | val_loss=0.597714, val_mis=0.333333
+[INFO] New best validation misclassification: 0.333333 at epoch 2
+[INFO] Epoch 3/100 | train_loss=0.512726, train_mis=0.156863 | val_loss=0.364493, val_mis=0.000000
+[INFO] New best validation misclassification: 0.000000 at epoch 3
+[INFO] Epoch 4/100 | train_loss=0.283702, train_mis=0.000000 | val_loss=0.348841, val_mis=0.166667
+[INFO] Epoch 5/100 | train_loss=0.172149, train_mis=0.058824 | val_loss=0.065519, val_mis=0.000000
+[INFO] Epoch 6/100 | train_loss=0.055121, train_mis=0.000000 | val_loss=0.022600, val_mis=0.000000
+[INFO] Epoch 7/100 | train_loss=0.026839, train_mis=0.000000 | val_loss=0.008240, val_mis=0.000000
+[INFO] Epoch 8/100 | train_loss=0.015832, train_mis=0.000000 | val_loss=0.004010, val_mis=0.000000
+[INFO] Epoch 9/100 | train_loss=0.006934, train_mis=0.000000 | val_loss=0.002792, val_mis=0.000000
+[INFO] Epoch 10/100 | train_loss=0.004894, train_mis=0.000000 | val_loss=0.002140, val_mis=0.000000
+[INFO] Epoch 11/100 | train_loss=0.002502, train_mis=0.000000 | val_loss=0.001599, val_mis=0.000000
+[INFO] Epoch 12/100 | train_loss=0.001689, train_mis=0.000000 | val_loss=0.001261, val_mis=0.000000
+[INFO] Epoch 13/100 | train_loss=0.005255, train_mis=0.000000 | val_loss=0.000973, val_mis=0.000000
+[INFO] Early stopping triggered at epoch 13
+[INFO]   Mean inner validation misclassification: 0.000000
+[INFO]   -> New best hyperparameter setting found.
+[INFO] Selected hyperparameters for fold 4: {'lr': 0.001, 'dropout': 0.3, 'weight_decay': 0.0, 'mean_inner_val_misclass': 0.0}
+[INFO] Building final model for this outer fold.
+[INFO] Building model: DGCN with input_dim=211, num_classes=2, dropout=0.3
+[INFO] Training final model on outer-train split.
+[INFO] Training with lr=0.001, weight_decay=0.0
+[INFO] Epoch 1/100 | train_loss=0.658585, train_mis=0.360000 | val_loss=0.574690, val_mis=0.000000
+[INFO] New best validation misclassification: 0.000000 at epoch 1
+[INFO] Epoch 2/100 | train_loss=0.473539, train_mis=0.040000 | val_loss=0.320674, val_mis=0.000000
+[INFO] Epoch 3/100 | train_loss=0.266197, train_mis=0.040000 | val_loss=0.120295, val_mis=0.000000
+[INFO] Epoch 4/100 | train_loss=0.126980, train_mis=0.020000 | val_loss=0.037916, val_mis=0.000000
+[INFO] Epoch 5/100 | train_loss=0.071730, train_mis=0.020000 | val_loss=0.018413, val_mis=0.000000
+[INFO] Epoch 6/100 | train_loss=0.083626, train_mis=0.040000 | val_loss=0.013295, val_mis=0.000000
+[INFO] Epoch 7/100 | train_loss=0.025130, train_mis=0.000000 | val_loss=0.007442, val_mis=0.000000
+[INFO] Epoch 8/100 | train_loss=0.011470, train_mis=0.000000 | val_loss=0.004704, val_mis=0.000000
+[INFO] Epoch 9/100 | train_loss=0.011266, train_mis=0.000000 | val_loss=0.003096, val_mis=0.000000
+[INFO] Epoch 10/100 | train_loss=0.007846, train_mis=0.000000 | val_loss=0.002206, val_mis=0.000000
+[INFO] Epoch 11/100 | train_loss=0.007368, train_mis=0.000000 | val_loss=0.001570, val_mis=0.000000
+[INFO] Early stopping triggered at epoch 11
+[INFO] Evaluating on outer-test split.
+[INFO] Fold 4 test loss: 0.588486
+[INFO] Fold 4 test misclassification: 0.000000
+
+========== OUTER FOLD 5/5 ==========
+[INFO] Outer fold train size: 63
+[INFO] Outer fold test size: 15
+
+========== HYPERPARAMETER TUNING ==========
+[INFO] Generated 5 inner folds for hyperparameter tuning.
+[INFO] Total hyperparameter combinations: 1
+[INFO] Testing hyperparameter combo 1/1: lr=0.001, dropout=0.3, weight_decay=0.0
+[INFO]   Inner fold 1/5
+[INFO] Building model: DGCN with input_dim=211, num_classes=2, dropout=0.3
+[INFO] Training with lr=0.001, weight_decay=0.0
+[INFO] Epoch 1/100 | train_loss=0.682867, train_mis=0.460000 | val_loss=0.642367, val_mis=0.153846
+[INFO] New best validation misclassification: 0.153846 at epoch 1
+[INFO] Epoch 2/100 | train_loss=0.598632, train_mis=0.060000 | val_loss=0.509589, val_mis=0.000000
+[INFO] New best validation misclassification: 0.000000 at epoch 2
+[INFO] Epoch 3/100 | train_loss=0.393094, train_mis=0.000000 | val_loss=0.261353, val_mis=0.000000
+[INFO] Epoch 4/100 | train_loss=0.174772, train_mis=0.000000 | val_loss=0.067781, val_mis=0.000000
+[INFO] Epoch 5/100 | train_loss=0.051889, train_mis=0.000000 | val_loss=0.014942, val_mis=0.000000
+[INFO] Epoch 6/100 | train_loss=0.010998, train_mis=0.000000 | val_loss=0.003965, val_mis=0.000000
+[INFO] Epoch 7/100 | train_loss=0.005126, train_mis=0.000000 | val_loss=0.001726, val_mis=0.000000
+[INFO] Epoch 8/100 | train_loss=0.006773, train_mis=0.000000 | val_loss=0.001009, val_mis=0.000000
+[INFO] Epoch 9/100 | train_loss=0.001891, train_mis=0.000000 | val_loss=0.000637, val_mis=0.000000
+[INFO] Epoch 10/100 | train_loss=0.001692, train_mis=0.000000 | val_loss=0.000478, val_mis=0.000000
+[INFO] Epoch 11/100 | train_loss=0.002185, train_mis=0.000000 | val_loss=0.000352, val_mis=0.000000
+[INFO] Epoch 12/100 | train_loss=0.001590, train_mis=0.000000 | val_loss=0.000277, val_mis=0.000000
+[INFO] Early stopping triggered at epoch 12
+[INFO]   Inner fold 2/5
+[INFO] Building model: DGCN with input_dim=211, num_classes=2, dropout=0.3
+[INFO] Training with lr=0.001, weight_decay=0.0
+[INFO] Epoch 1/100 | train_loss=0.688494, train_mis=0.440000 | val_loss=0.656840, val_mis=0.461538
+[INFO] New best validation misclassification: 0.461538 at epoch 1
+[INFO] Epoch 2/100 | train_loss=0.612823, train_mis=0.420000 | val_loss=0.522742, val_mis=0.000000
+[INFO] New best validation misclassification: 0.000000 at epoch 2
+[INFO] Epoch 3/100 | train_loss=0.434154, train_mis=0.000000 | val_loss=0.299480, val_mis=0.000000
+[INFO] Epoch 4/100 | train_loss=0.310281, train_mis=0.040000 | val_loss=0.123146, val_mis=0.000000
+[INFO] Epoch 5/100 | train_loss=0.252654, train_mis=0.080000 | val_loss=0.083702, val_mis=0.000000
+[INFO] Epoch 6/100 | train_loss=0.108840, train_mis=0.000000 | val_loss=0.044618, val_mis=0.000000
+[INFO] Epoch 7/100 | train_loss=0.040983, train_mis=0.000000 | val_loss=0.019692, val_mis=0.000000
+[INFO] Epoch 8/100 | train_loss=0.027777, train_mis=0.000000 | val_loss=0.009222, val_mis=0.000000
+[INFO] Epoch 9/100 | train_loss=0.009187, train_mis=0.000000 | val_loss=0.005554, val_mis=0.000000
+[INFO] Epoch 10/100 | train_loss=0.014520, train_mis=0.000000 | val_loss=0.003635, val_mis=0.000000
+[INFO] Epoch 11/100 | train_loss=0.008220, train_mis=0.000000 | val_loss=0.002476, val_mis=0.000000
+[INFO] Epoch 12/100 | train_loss=0.007278, train_mis=0.000000 | val_loss=0.001583, val_mis=0.000000
+[INFO] Early stopping triggered at epoch 12
+[INFO]   Inner fold 3/5
+[INFO] Building model: DGCN with input_dim=211, num_classes=2, dropout=0.3
+[INFO] Training with lr=0.001, weight_decay=0.0
+[INFO] Epoch 1/100 | train_loss=0.699411, train_mis=0.480000 | val_loss=0.686794, val_mis=0.461538
+[INFO] New best validation misclassification: 0.461538 at epoch 1
+[INFO] Epoch 2/100 | train_loss=0.684254, train_mis=0.400000 | val_loss=0.674398, val_mis=0.461538
+[INFO] Epoch 3/100 | train_loss=0.661762, train_mis=0.360000 | val_loss=0.620649, val_mis=0.076923
+[INFO] New best validation misclassification: 0.076923 at epoch 3
+[INFO] Epoch 4/100 | train_loss=0.529279, train_mis=0.100000 | val_loss=0.437981, val_mis=0.000000
+[INFO] New best validation misclassification: 0.000000 at epoch 4
+[INFO] Epoch 5/100 | train_loss=0.284713, train_mis=0.000000 | val_loss=0.179914, val_mis=0.000000
+[INFO] Epoch 6/100 | train_loss=0.088247, train_mis=0.000000 | val_loss=0.034467, val_mis=0.000000
+[INFO] Epoch 7/100 | train_loss=0.018898, train_mis=0.000000 | val_loss=0.010669, val_mis=0.000000
+[INFO] Epoch 8/100 | train_loss=0.007407, train_mis=0.000000 | val_loss=0.006147, val_mis=0.000000
+[INFO] Epoch 9/100 | train_loss=0.003784, train_mis=0.000000 | val_loss=0.004648, val_mis=0.000000
+[INFO] Epoch 10/100 | train_loss=0.002103, train_mis=0.000000 | val_loss=0.004267, val_mis=0.000000
+[INFO] Epoch 11/100 | train_loss=0.001101, train_mis=0.000000 | val_loss=0.004105, val_mis=0.000000
+[INFO] Epoch 12/100 | train_loss=0.003390, train_mis=0.000000 | val_loss=0.004525, val_mis=0.000000
+[INFO] Epoch 13/100 | train_loss=0.001974, train_mis=0.000000 | val_loss=0.004481, val_mis=0.000000
+[INFO] Epoch 14/100 | train_loss=0.001015, train_mis=0.000000 | val_loss=0.004109, val_mis=0.000000
+[INFO] Early stopping triggered at epoch 14
+[INFO]   Inner fold 4/5
+[INFO] Building model: DGCN with input_dim=211, num_classes=2, dropout=0.3
+[INFO] Training with lr=0.001, weight_decay=0.0
+[INFO] Epoch 1/100 | train_loss=0.668272, train_mis=0.372549 | val_loss=0.589945, val_mis=0.000000
+[INFO] New best validation misclassification: 0.000000 at epoch 1
+[INFO] Epoch 2/100 | train_loss=0.537027, train_mis=0.058824 | val_loss=0.372469, val_mis=0.000000
+[INFO] Epoch 3/100 | train_loss=0.281706, train_mis=0.000000 | val_loss=0.139000, val_mis=0.000000
+[INFO] Epoch 4/100 | train_loss=0.153124, train_mis=0.019608 | val_loss=0.036527, val_mis=0.000000
+[INFO] Epoch 5/100 | train_loss=0.031982, train_mis=0.000000 | val_loss=0.009964, val_mis=0.000000
+[INFO] Epoch 6/100 | train_loss=0.010031, train_mis=0.000000 | val_loss=0.004180, val_mis=0.000000
+[INFO] Epoch 7/100 | train_loss=0.019095, train_mis=0.000000 | val_loss=0.002086, val_mis=0.000000
+[INFO] Epoch 8/100 | train_loss=0.005596, train_mis=0.000000 | val_loss=0.001180, val_mis=0.000000
+[INFO] Epoch 9/100 | train_loss=0.003121, train_mis=0.000000 | val_loss=0.000779, val_mis=0.000000
+[INFO] Epoch 10/100 | train_loss=0.002630, train_mis=0.000000 | val_loss=0.000579, val_mis=0.000000
+[INFO] Epoch 11/100 | train_loss=0.001491, train_mis=0.000000 | val_loss=0.000459, val_mis=0.000000
+[INFO] Early stopping triggered at epoch 11
+[INFO]   Inner fold 5/5
+[INFO] Building model: DGCN with input_dim=211, num_classes=2, dropout=0.3
+[INFO] Training with lr=0.001, weight_decay=0.0
+[INFO] Epoch 1/100 | train_loss=0.681903, train_mis=0.450980 | val_loss=0.650760, val_mis=0.416667
+[INFO] New best validation misclassification: 0.416667 at epoch 1
+[INFO] Epoch 2/100 | train_loss=0.560901, train_mis=0.294118 | val_loss=0.439565, val_mis=0.166667
+[INFO] New best validation misclassification: 0.166667 at epoch 2
+[INFO] Epoch 3/100 | train_loss=0.334828, train_mis=0.058824 | val_loss=0.193767, val_mis=0.000000
+[INFO] New best validation misclassification: 0.000000 at epoch 3
+[INFO] Epoch 4/100 | train_loss=0.165527, train_mis=0.000000 | val_loss=0.093014, val_mis=0.000000
+[INFO] Epoch 5/100 | train_loss=0.055762, train_mis=0.000000 | val_loss=0.590006, val_mis=0.250000
+[INFO] Epoch 6/100 | train_loss=0.017753, train_mis=0.000000 | val_loss=0.380610, val_mis=0.166667
+[INFO] Epoch 7/100 | train_loss=0.010512, train_mis=0.000000 | val_loss=0.239372, val_mis=0.166667
+[INFO] Epoch 8/100 | train_loss=0.003527, train_mis=0.000000 | val_loss=0.199352, val_mis=0.083333
+[INFO] Epoch 9/100 | train_loss=0.002116, train_mis=0.000000 | val_loss=0.166443, val_mis=0.083333
+[INFO] Epoch 10/100 | train_loss=0.001935, train_mis=0.000000 | val_loss=0.159372, val_mis=0.083333
+[INFO] Epoch 11/100 | train_loss=0.001757, train_mis=0.000000 | val_loss=0.146604, val_mis=0.083333
+[INFO] Epoch 12/100 | train_loss=0.002052, train_mis=0.000000 | val_loss=0.146215, val_mis=0.083333
+[INFO] Epoch 13/100 | train_loss=0.001382, train_mis=0.000000 | val_loss=0.140891, val_mis=0.083333
+[INFO] Early stopping triggered at epoch 13
+[INFO]   Mean inner validation misclassification: 0.000000
+[INFO]   -> New best hyperparameter setting found.
+[INFO] Selected hyperparameters for fold 5: {'lr': 0.001, 'dropout': 0.3, 'weight_decay': 0.0, 'mean_inner_val_misclass': 0.0}
+[INFO] Building final model for this outer fold.
+[INFO] Building model: DGCN with input_dim=211, num_classes=2, dropout=0.3
+[INFO] Training final model on outer-train split.
+[INFO] Training with lr=0.001, weight_decay=0.0
+[INFO] Epoch 1/100 | train_loss=0.667844, train_mis=0.300000 | val_loss=0.641278, val_mis=0.384615
+[INFO] New best validation misclassification: 0.384615 at epoch 1
+[INFO] Epoch 2/100 | train_loss=0.580539, train_mis=0.060000 | val_loss=0.483660, val_mis=0.000000
+[INFO] New best validation misclassification: 0.000000 at epoch 2
+[INFO] Epoch 3/100 | train_loss=0.376715, train_mis=0.000000 | val_loss=0.243558, val_mis=0.000000
+[INFO] Epoch 4/100 | train_loss=0.257705, train_mis=0.040000 | val_loss=0.145351, val_mis=0.000000
+[INFO] Epoch 5/100 | train_loss=0.130950, train_mis=0.020000 | val_loss=0.037579, val_mis=0.000000
+[INFO] Epoch 6/100 | train_loss=0.045226, train_mis=0.000000 | val_loss=0.021496, val_mis=0.000000
+[INFO] Epoch 7/100 | train_loss=0.018215, train_mis=0.000000 | val_loss=0.093130, val_mis=0.076923
+[INFO] Epoch 8/100 | train_loss=0.010008, train_mis=0.000000 | val_loss=0.014063, val_mis=0.000000
+[INFO] Epoch 9/100 | train_loss=0.007704, train_mis=0.000000 | val_loss=0.003428, val_mis=0.000000
+[INFO] Epoch 10/100 | train_loss=0.006017, train_mis=0.000000 | val_loss=0.002172, val_mis=0.000000
+[INFO] Epoch 11/100 | train_loss=0.004247, train_mis=0.000000 | val_loss=0.001557, val_mis=0.000000
+[INFO] Epoch 12/100 | train_loss=0.002941, train_mis=0.000000 | val_loss=0.001213, val_mis=0.000000
+[INFO] Early stopping triggered at epoch 12
+[INFO] Evaluating on outer-test split.
+[INFO] Fold 5 test loss: 0.477307
+[INFO] Fold 5 test misclassification: 0.000000
+
+========== WRITING OUTPUT FILES ==========
+[INFO] Wrote summary_metrics.json
+[INFO] Wrote optimal_hyperparameters.json
+[INFO] Wrote runtime_seconds.txt
+[INFO] Wrote fold_metrics.csv
+[INFO] Wrote raw_classifications.csv
+
+========== DONE ==========
+[INFO] Aggregate accuracy: 1.000000
+[INFO] Aggregate misclassification: 0.000000
+[INFO] Average accuracy: 1.000000
+[INFO] Average misclassification: 0.000000
+[INFO] Runtime (seconds): 719.170311

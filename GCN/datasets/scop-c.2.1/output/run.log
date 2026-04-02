@@ -1,0 +1,112 @@
+
+========== STARTING EXPERIMENT ==========
+[INFO] Dataset: scop-c.2.1
+[INFO] Model type: dgcn
+[INFO] Feature mode: dgdvms
+[INFO] Partitions mode: auto
+[INFO] Device: cuda
+[INFO] Output directory: datasets/scop-c.2.1/output
+[INFO] Random seed set to 42.
+
+========== LOADING DATASET FROM DISK ==========
+[INFO] Dataset directory: datasets/scop-c.2.1
+[INFO] Reading dataset label file: datasets/scop-c.2.1/scop-c.2.1.txt
+[INFO] Loaded 242 samples from label file.
+[INFO] Detected 3 unique classes.
+[INFO] Indexing dGDVM files in: datasets/scop-c.2.1/dgdvms
+[INFO] Found 242 dGDVM txt files.
+[INFO] Processing sample 25/242: 1dhr_A_1_100000
+[INFO] Processing sample 50/242: 1zmt_A_1_100000
+[INFO] Processing sample 75/242: 4zju_A_1_100000
+[INFO] Processing sample 100/242: 3sju_A_1_100000
+[INFO] Processing sample 125/242: 1o89_A_116_292
+[INFO] Processing sample 150/242: 3oig_A_1_258
+[INFO] Processing sample 175/242: 1t4b_A_1_133
+[INFO] Processing sample 200/242: 1a7k_A_1_165
+[INFO] Processing sample 225/242: 1h6d_A_375_433
+[INFO] Processing sample 242/242: 1tlt_A_268_308
+[INFO] Finished loading dataset 'scop-c.2.1'.
+[INFO] Loaded samples: 242
+[INFO] Problematic samples: 0
+[INFO] Input feature dimension: 211
+
+========== GENERATING OUTER CV PARTITIONS ==========
+[INFO] Generating 5 stratified outer folds.
+[INFO] Generated outer fold 1: train=193, test=49
+[INFO] Generated outer fold 2: train=193, test=49
+[INFO] Generated outer fold 3: train=194, test=48
+[INFO] Generated outer fold 4: train=194, test=48
+[INFO] Generated outer fold 5: train=194, test=48
+
+========== SAVING GENERATED PARTITIONS ==========
+[INFO] Saved generated fold 1 to datasets/scop-c.2.1/output/generated_partitions/1.txt
+[INFO] Saved generated fold 2 to datasets/scop-c.2.1/output/generated_partitions/2.txt
+[INFO] Saved generated fold 3 to datasets/scop-c.2.1/output/generated_partitions/3.txt
+[INFO] Saved generated fold 4 to datasets/scop-c.2.1/output/generated_partitions/4.txt
+[INFO] Saved generated fold 5 to datasets/scop-c.2.1/output/generated_partitions/5.txt
+
+========== OUTER FOLD 1/5 ==========
+[INFO] Outer fold train size: 193
+[INFO] Outer fold test size: 49
+
+========== HYPERPARAMETER TUNING ==========
+[INFO] Generated 5 inner folds for hyperparameter tuning.
+[INFO] Total hyperparameter combinations: 1
+[INFO] Testing hyperparameter combo 1/1: lr=0.001, dropout=0.3, weight_decay=0.0
+[INFO]   Inner fold 1/5
+[INFO] Building model: DGCN with input_dim=211, num_classes=3, dropout=0.3
+[INFO] Training with lr=0.001, weight_decay=0.0
+[INFO] Epoch 1/100 | train_loss=0.935700, train_mis=0.415584 | val_loss=0.676056, val_mis=0.205128
+[INFO] New best validation misclassification: 0.205128 at epoch 1
+[INFO] Epoch 2/100 | train_loss=0.596128, train_mis=0.188312 | val_loss=0.851277, val_mis=0.307692
+[INFO] Epoch 3/100 | train_loss=0.568439, train_mis=0.207792 | val_loss=0.407140, val_mis=0.153846
+[INFO] New best validation misclassification: 0.153846 at epoch 3
+[INFO] Epoch 4/100 | train_loss=0.460740, train_mis=0.162338 | val_loss=0.812990, val_mis=0.307692
+[INFO] Epoch 5/100 | train_loss=0.443870, train_mis=0.175325 | val_loss=0.357687, val_mis=0.153846
+[INFO] Epoch 6/100 | train_loss=0.349680, train_mis=0.149351 | val_loss=0.334827, val_mis=0.153846
+[INFO] Epoch 7/100 | train_loss=0.493191, train_mis=0.207792 | val_loss=0.469025, val_mis=0.179487
+[INFO] Epoch 8/100 | train_loss=0.403917, train_mis=0.168831 | val_loss=0.324496, val_mis=0.153846
+[INFO] Epoch 9/100 | train_loss=0.409833, train_mis=0.136364 | val_loss=0.404660, val_mis=0.153846
+[INFO] Epoch 10/100 | train_loss=0.314611, train_mis=0.136364 | val_loss=0.280446, val_mis=0.153846
+[INFO] Epoch 11/100 | train_loss=0.276407, train_mis=0.123377 | val_loss=0.257453, val_mis=0.128205
+[INFO] New best validation misclassification: 0.128205 at epoch 11
+[INFO] Epoch 12/100 | train_loss=0.382701, train_mis=0.168831 | val_loss=0.297135, val_mis=0.153846
+[INFO] Epoch 13/100 | train_loss=0.255897, train_mis=0.097403 | val_loss=0.242098, val_mis=0.051282
+[INFO] New best validation misclassification: 0.051282 at epoch 13
+[INFO] Epoch 14/100 | train_loss=0.206751, train_mis=0.058442 | val_loss=0.222271, val_mis=0.102564
+[INFO] Epoch 15/100 | train_loss=0.241818, train_mis=0.071429 | val_loss=0.413793, val_mis=0.128205
+[INFO] Epoch 16/100 | train_loss=0.146984, train_mis=0.064935 | val_loss=0.267431, val_mis=0.051282
+[INFO] Epoch 17/100 | train_loss=0.099856, train_mis=0.025974 | val_loss=0.144477, val_mis=0.076923
+[INFO] Epoch 18/100 | train_loss=0.428205, train_mis=0.142857 | val_loss=0.447180, val_mis=0.153846
+[INFO] Epoch 19/100 | train_loss=0.215912, train_mis=0.090909 | val_loss=0.232619, val_mis=0.076923
+[INFO] Epoch 20/100 | train_loss=0.159769, train_mis=0.064935 | val_loss=0.280400, val_mis=0.102564
+[INFO] Epoch 21/100 | train_loss=0.282249, train_mis=0.084416 | val_loss=0.295481, val_mis=0.076923
+[INFO] Epoch 22/100 | train_loss=0.341849, train_mis=0.162338 | val_loss=0.181502, val_mis=0.051282
+[INFO] Epoch 23/100 | train_loss=0.097158, train_mis=0.019481 | val_loss=0.174193, val_mis=0.051282
+[INFO] Early stopping triggered at epoch 23
+[INFO]   Inner fold 2/5
+[INFO] Building model: DGCN with input_dim=211, num_classes=3, dropout=0.3
+[INFO] Training with lr=0.001, weight_decay=0.0
+[INFO] Epoch 1/100 | train_loss=0.997669, train_mis=0.519481 | val_loss=0.799060, val_mis=0.410256
+[INFO] New best validation misclassification: 0.410256 at epoch 1
+[INFO] Epoch 2/100 | train_loss=0.630689, train_mis=0.285714 | val_loss=0.579936, val_mis=0.230769
+[INFO] New best validation misclassification: 0.230769 at epoch 2
+[INFO] Epoch 3/100 | train_loss=1.005538, train_mis=0.311688 | val_loss=0.833600, val_mis=0.230769
+[INFO] Epoch 4/100 | train_loss=0.655102, train_mis=0.227273 | val_loss=0.485389, val_mis=0.179487
+[INFO] New best validation misclassification: 0.179487 at epoch 4
+[INFO] Epoch 5/100 | train_loss=0.441354, train_mis=0.188312 | val_loss=0.395722, val_mis=0.128205
+[INFO] New best validation misclassification: 0.128205 at epoch 5
+[INFO] Epoch 6/100 | train_loss=0.505747, train_mis=0.201299 | val_loss=0.465500, val_mis=0.153846
+[INFO] Epoch 7/100 | train_loss=0.354640, train_mis=0.162338 | val_loss=0.354664, val_mis=0.128205
+[INFO] Epoch 8/100 | train_loss=0.347379, train_mis=0.162338 | val_loss=0.429100, val_mis=0.153846
+[INFO] Epoch 9/100 | train_loss=0.304994, train_mis=0.123377 | val_loss=0.273607, val_mis=0.128205
+[INFO] Epoch 10/100 | train_loss=0.252426, train_mis=0.110390 | val_loss=0.197085, val_mis=0.051282
+[INFO] New best validation misclassification: 0.051282 at epoch 10
+[INFO] Epoch 11/100 | train_loss=0.313136, train_mis=0.129870 | val_loss=0.210800, val_mis=0.025641
+[INFO] New best validation misclassification: 0.025641 at epoch 11
+[INFO] Epoch 12/100 | train_loss=0.266416, train_mis=0.084416 | val_loss=0.217406, val_mis=0.102564
+[INFO] Epoch 13/100 | train_loss=0.213598, train_mis=0.045455 | val_loss=0.148341, val_mis=0.025641
+[INFO] Epoch 14/100 | train_loss=0.197306, train_mis=0.064935 | val_loss=0.287850, val_mis=0.102564
+[INFO] Epoch 15/100 | train_loss=0.152479, train_mis=0.058442 | val_loss=0.070131, val_mis=0.025641
+[INFO] Epoch 16/100 | train_loss=0.379328, train_mis=0.155844 | val_loss=0.411404, val_mis=0.179487
+[INFO] Epoch 17/100 | train_loss=0.232728, train_mis=0.103896 | val_loss=0.110606, val_mis=0.025641

@@ -1,0 +1,18 @@
+{
+  "dataset_name": "scop-g",
+  "model_type": "dgcn",
+  "feature_mode": "dgdvms",
+  "partitions_mode": "user",
+  "num_samples_loaded": 78,
+  "num_samples_skipped": 0,
+  "num_classes": 2,
+  "class_mapping": {
+    "g.18": 0,
+    "g.3": 1
+  },
+  "aggregate_accuracy": 1.0,
+  "aggregate_misclassification": 0.0,
+  "average_accuracy": 1.0,
+  "average_misclassification": 0.0,
+  "classification_runtime_seconds": 719.1703112530004
+}

@@ -1,0 +1,46 @@
+{
+  "per_fold": [
+    {
+      "fold": 1,
+      "lr": 0.001,
+      "dropout": 0.3,
+      "weight_decay": 0.0,
+      "mean_inner_val_misclass": 0.0
+    },
+    {
+      "fold": 2,
+      "lr": 0.001,
+      "dropout": 0.3,
+      "weight_decay": 0.0,
+      "mean_inner_val_misclass": 0.0
+    },
+    {
+      "fold": 3,
+      "lr": 0.001,
+      "dropout": 0.3,
+      "weight_decay": 0.0,
+      "mean_inner_val_misclass": 0.0
+    },
+    {
+      "fold": 4,
+      "lr": 0.001,
+      "dropout": 0.3,
+      "weight_decay": 0.0,
+      "mean_inner_val_misclass": 0.0
+    },
+    {
+      "fold": 5,
+      "lr": 0.001,
+      "dropout": 0.3,
+      "weight_decay": 0.0,
+      "mean_inner_val_misclass": 0.0
+    }
+  ],
+  "overall_best": {
+    "lr": 0.001,
+    "dropout": 0.3,
+    "weight_decay": 0.0,
+    "selection_count": 5,
+    "mean_inner_val_misclassification": 0.0
+  }
+}
