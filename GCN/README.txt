@@ -225,7 +225,6 @@ Required:
 
 Optional:
 --root_dir (default: .)
---max_nodes (default: 1072)
 --default_feature_dim (default: 1072)
 --batch_size (default: 5)
 --epochs (default: 100)
