@@ -852,6 +852,14 @@ def run_experiment(cfg: Config) -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
     init_logger(out_dir / "run.log")
 
+    largest_psn_size = infer_largest_psn_size(samples)
+
+    if cfg.max_nodes is None:
+        cfg.max_nodes = largest_psn_size
+
+    if cfg.default_feature_dim is None:
+        cfg.default_feature_dim = largest_psn_size
+
     try:
         step("STARTING EXPERIMENT")
         log(f"Dataset: {cfg.dataset_name}")
@@ -1071,6 +1079,11 @@ def run_experiment(cfg: Config) -> None:
 
     finally:
         close_logger()
+
+def infer_largest_psn_size(samples: List[Dict[str, Any]]) -> int:
+    if len(samples) == 0:
+        raise RuntimeError("Cannot infer largest PSN size because no samples were loaded.")
+    return max(int(s["adjs"].shape[1]) for s in samples)
 
 def parse_args() -> Config:
     parser = argparse.ArgumentParser(
