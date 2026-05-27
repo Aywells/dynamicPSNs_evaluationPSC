@@ -38,10 +38,10 @@ The CNN+LSTM code supports four method variants:
 
 | Varient name as in the paper | Varient name as in `CNN_LSTM/` | Input | Main idea |
 |---|---|---|---|
-| Dynamic graphlets + (2 CNN, 3 LSTM) | `paper_model_template_cv.py` | dGDVM matrix for each protein | CNN+BiLSTM architecture from [H. Guo, et al. (2019)](https://arxiv.org/abs/1910.02594); uses 2 CNN layers followed by 3 BiLSTM layers with ReLU activation. |
-| Dynamic graphlets +  (3 CNN, 3 LSTM) | `deep_model_template_cv.py` | dGDVM matrix for each protein | Deepest CNN+BiLSTM variant; uses 3 CNN layers followed by 3 BiLSTM layers. |
-| Dynamic graphlets +  (3 CNN, 1 LSTM) | `relu_model_template_cv.py` | dGDVM matrix for each protein | Variant with a deeper CNN component; uses 3 CNN layers followed by 1 BiLSTM layer with ReLU activation. |
-| Dynamic graphlets +  (3 CNN, 1 LSTM) under LeakyReLU | `leaky_model_template_cv.py` | dGDVM matrix for each protein | Same layer structure as the ReLU variant, but uses LeakyReLU activation instead of ReLU. |
+| Dynamic graphlets + (2 CNN, 3 LSTM) | `paper_model_template_cv.py` | non-zero dGDVM matrix for each protein | CNN+BiLSTM architecture from [H. Guo, et al. (2019)](https://arxiv.org/abs/1910.02594); uses 2 CNN layers followed by 3 LSTM layers with ReLU activation. |
+| Dynamic graphlets +  (3 CNN, 3 LSTM) | `deep_model_template_cv.py` | non-zero dGDVM matrix for each protein | Deepest CNN+LSTM variant; uses 3 CNN layers followed by 3 LSTM layers. |
+| Dynamic graphlets +  (3 CNN, 1 LSTM) | `relu_model_template_cv.py` | non-zero dGDVM matrix for each protein | Variant with a deeper CNN component; uses 3 CNN layers followed by 1 LSTM layer with ReLU activation. |
+| Dynamic graphlets +  (3 CNN, 1 LSTM) under LeakyReLU | `leaky_model_template_cv.py` | non-zero dGDVM matrix for each protein | Same layer structure as the ReLU variant, but uses LeakyReLU activation instead of ReLU. |
 
 
 ### `datasets/`
