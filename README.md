@@ -1,4 +1,4 @@
-# *Traditional* machine learning vs. *deep learning* from dynamic graph representations of proteins’ 3D folds in the task of protein structure classification CODE
+# *Traditional* machine learning vs. *deep* learning from dynamic graph representations of proteins’ 3D folds in the task of protein structure classification CODE
 ---
 This repository contains the code used to run the CNN+LSTM and GCN methods used in our paper, "Traditional machine learning vs. deep learning from dynamic graph representations of proteins’ 3D folds in the task of protein structure classification", A. Wells, F. A. Gatsi, A. Striegel, and T. Milenković (2026), under review."
 
