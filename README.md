@@ -71,6 +71,8 @@ At a high level, the repository supports the following steps (i.e. the same step
    - [b. GCN variants](#b-gcn-variants)
 
 - [IV. Our results: misclassification rates and runtimes for all method variants](#v-our-results-misclassification-rates-and-runtimes-for-all-method-variants)
+   - [a. Results for the main method variants](#a-results-for-the-main-method-variants)
+   - [b. Results for the baseline methods](#b-results-for-the-baseline-methods)
 
 Below, we go into each step in more detail:
 
@@ -81,7 +83,7 @@ Below, we go into each step in more detail:
 In the paper, we use the same 72 datasets introduced by [Newaz et al. (2022)](https://doi.org/10.1002/prot.26349) ([GitHub link](https://github.com/KhaliqueN/DynamicPSN)). In addition, the method to aquire `.cif` files, Dynamic PSNs and (full) dGDVMs is the same as what is instructed by [Newaz et al. (2022)](https://doi.org/10.1002/prot.26349). For completeness, we include the following instructions for preparing and generating the data.
 
 
-### a. More details on the 72 dataset files
+### &emsp;&emsp;&emsp;a. More details on the 72 dataset files
 
 The dataset files are provided in `data/72_datasets/`, where each `.txt` file in this directory corresponds to one of the 72 datasets in the paper.
 
@@ -230,7 +232,7 @@ with the directory containing the non-zero dGDVMs and `72_datasets` placed in th
 
 ---
 
-## &emsp; III. Run the method variants
+## &emsp;III. Run the method variants
 
 After preparing the non-zero dGDVMs and dynamic PSNs, we run the considered deep learning method variants. In the paper, we consider two main paradigms of deep learning approaches:
 
@@ -245,7 +247,7 @@ Below, we go into more detail on both the regular deep learning and graph-based 
 
 ---
 
-###  &emsp;&emsp;&emsp;  a. CNN+LSTM variants
+### &emsp;&emsp;&emsp;a. CNN+LSTM variants
 
 The user can find the code for all CNN+LSTM variants in `code/CNN_LSTM/`.
 
@@ -329,7 +331,7 @@ While the misclassification rate tells us how often the method is wrong overall,
 
 ---
 
-###   &emsp;&emsp;&emsp; b. GCN variants
+### &emsp;&emsp;&emsp;b. GCN variants
 
 The user can find the code for all GCMN variants in `code/GCN/`.
 
@@ -560,4 +562,70 @@ run.log
 ```
 and then continues running. Therefore, the user should check these files after each run to determine whether any samples were skipped.
 
-## &emsp; IV. Our results: misclassification rates and runtimes for all method variants
+##  IV. Our results: misclassification rates and runtimes for all method variants
+
+The results reported in the paper are provided in:
+
+```text
+data/results_from_the_study/
+```
+
+This directory contains two Excel files:
+
+```text
+results_variants.xlsx
+results_baselines.xlsx
+```
+
+These files contain the per-dataset results used to compare the considered protein structure classification methods across the 72 datasets.
+
+---
+
+### a. Results for the main method variants
+
+The file:
+
+```text
+results_variants.xlsx
+```
+
+contains the per-dataset misclassification rates and runtimes for the main method variants considered in the paper.
+
+Each row corresponds to one PSC dataset. The columns include the dataset name and method-specific result columns.
+
+| Column suffix   | Meaning                                                     |
+| --------------- | ----------------------------------------------------------- |
+| `_agg_misclass` | Aggregate misclassification rate for a method on a dataset. |
+| `_run_time`     | Runtime for a method on a dataset, reported in minutes.     |
+
+The methods included in this file are:
+
+| Method type       | Methods                                                                                                                                                                                                                   |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| LR method         | `Dynamic graphlets + LR`                                                                                                                                                                                                  |
+| CNN+LSTM variants | `Dynamic graphlets + regular deep learning (2,3)`; `Dynamic graphlets + regular deep learning (3,1,ReLu)`; `Dynamic graphlets + regular deep learning (3,1,leakyReLu)`; `Dynamic graphlets + regular deep learning (3,3)` |
+| GCN variants      | `Default features + DGCN`; `Dynamic graphlets + DGCN`; `Dynamic graphlets + SGCN`                                                                                                                                         |
+
+Lower misclassification rates indicate better classification performance. Lower runtimes indicate faster execution.
+
+---
+
+### b. Results for the baseline methods
+
+The file:
+
+```text
+results_baselines.xlsx
+```
+
+contains the per-dataset misclassification rates for the baseline methods.
+
+Each row corresponds to one PSC dataset. The columns are:
+
+| Column                      | Meaning                                                                   |
+| --------------------------- | ------------------------------------------------------------------------- |
+| `Dataset`                   | Name of the PSC dataset.                                                  |
+| `Majority class baseline`   | Misclassification rate obtained by always predicting the majority class.  |
+| `Static graphlets baseline` | Misclassification rate obtained using the static graphlet-based baseline. |
+
+These baseline results provide reference points for interpreting the main method variants. The majority-class baseline shows whether a method learns information beyond simply predicting the largest class, while the static graphlet baseline helps evaluate whether dynamic or deep learning-based methods improve over a static graphlet representation.
