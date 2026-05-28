@@ -2,23 +2,6 @@
 ---
 This repository describes the 72 datasets and contains the code used to run the regular deep learning (CNN+LSTM) and graph-based deep learning (GCN) method variants from our paper, "Traditional machine learning vs. deep learning from dynamic graph representations of proteins’ 3D folds in the task of protein structure classification", A. Wells, F. A. Gatsi, A. Striegel, and T. Milenković (2026), under review, 2026."
 
-
-<!-- # Table of contents
-
-- [1. Directories in the repository](#1-Directories-in-the-repository)
-- [2. The computational framework](#2-The-computational-framework)
-- [3. Step I: Prepare the dataset files](#3-step-I-prepare-the-dataset-files)
-- [4. Step II: Download the required CIF files](#4-step-II-download-the-required-cif-files)
-- [5. Step III: Generate dynamic PSNs](#5-step-III-generate-dynamic-psns)
-- [6. Step IV: Generate dGDVMs](#6-step-IV-generate-dgdvms)
-- [7. Step V: Organize the generated data for this repository](#7-step-V-organize-the-generated-data-for-this-repository)
-- [8. CNN+LSTM method](#8-cnnlstm-methods)
-- [9. SGCN and DGCN method](#9-sgcn-and-dgcn-methods)
-- [10. Inputs and outputs by method](#10-inputs-and-outputs-by-method)
-- [11. Results processing](#11-results-processing)
-
---- -->
-
 # Directories in the repository
 
 *The following are the directories in the repository:*
@@ -348,56 +331,6 @@ In the paper, we consider the following three GCN variants:
 
 Note that the GCN code supports both **static GCN (SGCN)** and **dynamic GCN (DGCN)** methods. Below we go into more detail on running both the SGCN and DGCN methods
 
-<!-- #### SGCN
-
-SGCN is the static GCN model. Its input is **one PSN snapshot per protein/domain**. Specifically, in our study, SGCN uses only the **final PSN snapshot** generated using the code provided by [Newaz et al. (2022)](https://doi.org/10.1002/prot.26349).
-
-At a high level, the SGCN framework is:
-
-```text
-final PSN snapshot
-        |
-        v
-GCN layers
-        |
-        v
-attention pooling
-        |
-        v
-classifier
-        |
-        v
-predicted PSC class
-```
-
-Thus, SGCN is used to evaluate how well a static graph representation of a protein domain can perform in the PSC task.
-
-#### DGCN
-
-DGCN is the dynamic GCN model. Its input is the **full ordered sequence of PSN snapshots** for each protein/domain. Specifically, in our study, DGCN uses the entire dynamic PSN generated using the code provided by [Newaz et al. (2022)](https://doi.org/10.1002/prot.26349).
-
-At a high level, the DGCN framework is:
-
-```text
-PSN snapshot 1      PSN snapshot 2      ...      PSN snapshot S
-      |                   |                           |
-      v                   v                           v
-   GCN + pool          GCN + pool                  GCN + pool
-      |                   |                           |
-      +-------------------+---------------------------+
-                          |
-                          v
-                 temporal sequence model
-                          |
-                          v
-                     classifier
-                          |
-                          v
-                  predicted PSC class
-```
-
-Thus, DGCN is used to evaluate whether modeling the ordered sequence of dynamic PSN snapshots improves PSC performance compared to using only the final/static PSN snapshot. -->
-
 #### Input
 
 The general inputs to the GCN methods are:
@@ -562,7 +495,7 @@ run.log
 ```
 and then continues running. Therefore, the user should check these files after each run to determine whether any samples were skipped.
 
-##  IV. Our results: misclassification rates and runtimes for all method variants
+##  &emsp;IV. Our results: misclassification rates and runtimes for all method variants
 
 The results reported in the paper are provided in:
 
@@ -581,7 +514,7 @@ These files contain the per-dataset results used to compare the considered prote
 
 ---
 
-### a. Results for the main method variants
+### &emsp;&emsp;&emsp;a. Results for the main method variants
 
 The file:
 
@@ -610,7 +543,7 @@ Lower misclassification rates indicate better classification performance. Lower 
 
 ---
 
-### b. Results for the baseline methods
+### &emsp;&emsp;&emsp;b. Results for the baseline methods
 
 The file:
 
