@@ -1,13 +1,13 @@
-# *Traditional* machine learning vs. *deep* learning from dynamic graph representations of proteins’ 3D folds in the task of protein structure classification CODE
+# *Traditional* machine learning vs. *deep* learning from dynamic graph representations of proteins’ 3D folds in the task of protein structure classification - CODE
 ---
-This repository describes the 72 datasets and contains the code used to run the regular deep learning (CNN+LSTM) and graph-based deep learning (GCN) method variants from our paper, "Traditional machine learning vs. deep learning from dynamic graph representations of proteins’ 3D folds in the task of protein structure classification", A. Wells, F. A. Gatsi, A. Striegel, and T. Milenković (2026), under review."
+This repository describes the 72 datasets and contains the code used to run the regular deep learning (CNN+LSTM) and graph-based deep learning (GCN) method variants from our paper, "Traditional machine learning vs. deep learning from dynamic graph representations of proteins’ 3D folds in the task of protein structure classification", A. Wells, F. A. Gatsi, A. Striegel, and T. Milenković (2026), under review, 2026."
 
 
-## Table of contents
+<!-- # Table of contents
 
-- [1. Directories in the repository](Directories-in-the-repository)
-- [2. Overall workflow](#2-overall-workflow)
-- [3. Step I: Prepare the dataset annotation files](#3-step-I-prepare-the-dataset-annotation-files)
+- [1. Directories in the repository](#1-Directories-in-the-repository)
+- [2. The computational framework](#2-The-computational-framework)
+- [3. Step I: Prepare the dataset files](#3-step-I-prepare-the-dataset-files)
 - [4. Step II: Download the required CIF files](#4-step-II-download-the-required-cif-files)
 - [5. Step III: Generate dynamic PSNs](#5-step-III-generate-dynamic-psns)
 - [6. Step IV: Generate dGDVMs](#6-step-IV-generate-dgdvms)
@@ -17,202 +17,103 @@ This repository describes the 72 datasets and contains the code used to run the 
 - [10. Inputs and outputs by method](#10-inputs-and-outputs-by-method)
 - [11. Results processing](#11-results-processing)
 
----
+--- -->
 
-## 1. Directories in the repository
-```text
-repository_root/
-|
-|-- CNN_LSTM/
-|-- datasets/
-|-- examples/
-|-- GCN/
-|-- scripts/
-```
+# Directories in the repository
 
-### `CNN_LSTM/`
+*The following are the directories in the repository:*
 
-This directory contains the code for training the CNN+LSTM variants on dynamic graphlet degree vector matrices (dGDVMs). 
+## &emsp;`data/`
 
-The CNN+LSTM code supports four method variants:
+#### `data/72_datasets/`
 
-| Varient name as in the paper | Varient name as in `CNN_LSTM/` | Input | Main idea |
-|---|---|---|---|
-| Dynamic graphlets + (2 CNN, 3 LSTM) | `paper_model_template_cv.py` | non-zero dGDVM matrix for each protein | The "default" variant inspired by [H. Guo, et al. (2019)](https://arxiv.org/abs/1910.02594); uses 2 CNN layers followed by 3 LSTM layers with ReLU activation. |
-| Dynamic graphlets +  (3 CNN, 3 LSTM) | `deep_model_template_cv.py` | non-zero dGDVM matrix for each protein | The variant that uses 3 CNN layers followed by 3 LSTM layers with ReLU activation. |
-| Dynamic graphlets +  (3 CNN, 1 LSTM) | `relu_model_template_cv.py` | non-zero dGDVM matrix for each protein | The variant that uses 3 CNN layers followed by 1 LSTM layer with ReLU activation. |
-| Dynamic graphlets +  (3 CNN, 1 LSTM) under LeakyReLU | `leaky_model_template_cv.py` | non-zero dGDVM matrix for each protein | The variant that uses 3 CNN layers followed by 1 LSTM layer with LeakyReLU activation. |
+   This directory contains the information about the 72 considered datasets. This information includes the list of all domains in a given dataset, and the domains' CATH or SCOPe structural class annotations. We discuss the 72 dataset files in more detail in [I.a. More details on the 72 dataset files](#a-more-details-on-the-72-dataset-files)
+
+#### `data/data_examples/`
+
+   This directory contains detailed data (`dynamic_PSNs`,`non-zero_dGDVMs`, and `5_training_testing_folds` for cross validation) for three smaller of all 72 considered datasets, intended to allow for running our code easily. Note that we cannot provide such detailed data for all 72 datasets due to large space requirements. Nonetheless, in [I.b. Download CIF files](#b-download-cif-files) and [I.c. Construct dynamic PSNs and extract (full) dGDVMs](#c-construct-dynamic-psns-and-extract-full-dgdvms), we explain a set-by-set procedure on how, from the information in `data/72_datasets/`, one can produce such detailed data, including how to download a `.cif` file for a given domain in a given dataset, how to contruct the dynamic PSN for that domain, and how to extract the (full) dGDVM for that dynamic PSN.
+
+#### `data/data_processing_scripts/`
+
+   This directory contains one utility script for converting the (full) dGDVM into its non-zero counterpart. It also contains two utility scripts for preparing the data for use in the considered deep learning variants.
+
+#### `data/results_from_the_study`
+   This directory contains detailed data produced and descriped in the paper. Specifically, it contains two excel files, `results_variants` and `results_baselines`, where the former provides per-dataset misclassification rates and runtimes (in minutes) for the variants presented in the paper, and the latter provides per-dataset misclassification rates for the baseline methods.
 
 
-### `datasets/`
+## &emsp;`code/`
 
-This directory contains the dataset annotation files used to define the PSC datasets.
+#### `code/CNN_LSTM/`
 
-For our paper, the datasets correspond to the 72 PSC datasets. Each dataset is represented by a `.txt` annotation file. The file name identifies the dataset. For example:
+   This directory contains the code for the four considered CNN+LSTM variants. We discuss the CNN+LSTM code in more detail in [III.a. CNN+LSTM variants](#a-cnnlstm-variants),.
 
-```text
-datasets/
-|
-|-- cath-1.txt
-|-- cath-1.10.txt
-|-- cath-1.10.10.txt
-|-- ...
-|-- scop-*.txt
-|-- astral-40.txt
-|-- scop-25.txt
-```
+#### `code/GCN/`
 
-### `examples/`
-
-This directory is intended for small example inputs, toy datasets, example annotation files, or demonstration files that can be used to test whether the data-generation and model-training steps are working.
-
-Use the datasets in this directory when you want to run a small test before running all 72 datasets.
-
-### `GCN/`
-
-This directory contains the code for running graph convolutional network methods.
-
-The GCN code supports two method variants:
-
-| Method | Input | Main idea |
-|---|---|---|
-| `SGCN` | Final PSN snapshot only + (default or dGDVMs) | Static graph method; ignores temporal evolution. |
-| `DGCN` | Dynamic PSN  + (default or dGDVMs) | Dynamic graph method; uses all snapshots and models temporal information. |
-
-Note that the GCN workflow can use either default/random node features or dGDVM node features.
-
-### `scripts/`
-
-This directory contains general utility scripts for data generation, organization, and conversion.
+   This directory contains the code for the three considered GCN variants. We discuss the GCN code in more detail in [III.b. GCN variants](#b-gcn-variants),.
 
 ---
 
-## 2. Overall workflow
+# The pipeline to use the data and the code
 
-### Repository overview
+At a high level, the repository supports the following steps (i.e. the same steps used in the paper):
 
-At a high level, the repository supports the following pipeline:
+- [I. Prepare the data](#i-prepare-the-data)
+   - [a. More details on the 72 dataset files](#a-more-details-on-the-72-dataset-files)
+   - [b. Download CIF files](#b-download-cif-files)
+   - [c. Contruct dynamic PSNs and extract (full) dGDVMs](#c-contruct-dynamic-psns-and-extract-full-dgdvms)
 
-```text
-protein-domain annotation files
-                        |
-                        v
-download corresponding CIF structure files
-                        |
-                        v
-generate dynamic protein structure networks (dynamic PSNs)
-                        |
-                        v
-compute dynamic graphlet degree vector matrices (dGDVMs)
-                        |
-        +-------------------------------+
-        |                               |
-        v                               v
-CNN+LSTM models                  SGCN/DGCN models
-trained on dGDVMs                trained on PSNs
-        |                        (default or dGDVM features)
-        |                               |
-        v                               v
-cross-validation outputs         cross-validation outputs
-        |                               |
-        v                               v
-result files                     result files
-```
+- [II. Process and clean the data](#ii-process-and-clean-the-data)
+   - [a. Convert (full) dGDVM into non-zero dGDVM](#a-convert-full-dgdvm-into-non-zero-dgdvm)
+   - [b. Prepare non-zero dGDVMs for use in method variants](#b-prepare-non-zero-dgdvms-for-use-in-method-variants)
 
-The repository should be used in the following order:
+- [III. Run the method variants](#iii-run-the-method-variants)
+   - [a. CNN+LSTM variants](#a-cnnlstm-variants)
+   - [b. GCN variants](#b-gcn-variants)
 
-1. **Prepare dataset annotation files.**
-   - Use the provided 72 dataset files in `datasets/`, or create your own annotation file.
+- [IV. Our results: misclassification rates and runtimes for all method variants](#v-our-results-misclassification-rates-and-runtimes-for-all-method-variants)
 
-2. **Download the corresponding CIF files.**
-   - Each sample in the annotation file refers to a protein structure/domain.
-   - The corresponding `.cif` files must be downloaded before PSNs can be generated.
-
-3. **Generate dynamic PSNs.**
-   - Dynamic PSNs are generated from the CIF files.
-
-4. **Generate dGDVMs.**
-   - dGDVMs are computed from the dynamic PSNs.
-   - These are required for CNN+LSTM models and optional as initialized features for GCN models.
-
-5. **Organize the generated files.**
-   - CNN+LSTM models need dataset-specific folders of dGDVM files and optional partition files.
-   - GCN models need dataset-specific folders containing PSN snapshots, optional dGDVM files, and optional partition files.
-
-6. **Run the models.**
-   - Run CNN+LSTM models from `CNN_LSTM/`.
-   - Run SGCN/DGCN models from `GCN/`.
-
-7. **Process results.**
-   - Collect aggregate misclassification rates, fold-level metrics, confusion matrices, and other outputs.
-
-<strong style="color: blue;">For all of these steps, we go into more detail below...</strong>
+Below, we go into each step in more detail:
 
 ---
 
-## 3. Step I: Prepare the dataset annotation files
+## &emsp;I. Prepare/generate the data
 
-The dataset annotation file defines which protein domains are included in a PSC dataset and what class label each domain has.
+In the paper, we use the same 72 datasets introduced by [Newaz et al. (2022)](https://doi.org/10.1002/prot.26349) ([GitHub link](https://github.com/KhaliqueN/DynamicPSN)). In addition, the method to aquire `.cif` files, Dynamic PSNs and (full) dGDVMs is the same as what is instructed by [Newaz et al. (2022)](https://doi.org/10.1002/prot.26349). For completeness, we include the following instructions for preparing and generating the data.
 
-### 3.1 Using the provided 72 datasets
 
-The repository provides a `datasets/` directory containing annotation files for the 72 PSC benchmark datasets used in the study.
+### a. More details on the 72 dataset files
 
-Each `.txt` file corresponds to one PSC dataset. The file name is used as the dataset name throughout the pipeline.
+The dataset files are provided in `data/72_datasets/`, where each `.txt` file in this directory corresponds to one of the 72 datasets in the paper.
 
-For example:
-
-```text
-datasets/cath-1.txt
-datasets/cath-1.10.txt
-datasets/astral-40.txt
-```
-In our paper, we use the same 72 datasets from [K. Newaz, et al. (2022)](https://doi.org/10.1002/prot.26349) ([Github link](https://github.com/KhaliqueN/DynamicPSN))
-
-### 3.2 Creating a new dataset annotation file
-
-A custom dataset annotation file should be a tab-separated `.txt` file with two columns:
+In a dataset file, each line corresponds to one protein domain and contains two tab-separated columns:
 
 ```text
 <class_label>    <protein_domain_name>
 ```
 
-The first column is the structural class label. The second column is the protein-domain identifier.
+| Column | Description |
+|---|---|
+| <class_label> | The structural class label of the protein domain (from either CATH or SCOPe). This is the prediction label used for PSC. |
+| <protein_domain_name> | The protein domain identifier, which specifies the CIF structure, chain, and residue range(s) that define the domain. |
 
-The expected protein-domain identifier format is:
+The two columns are separated by a tab.
+
+Note that the <protein_domain_name> in in the following format:
 
 ```text
 CIFID_chainID_startID1_endID1+startID2_endID2+...+startIDn_endIDn
 ```
-
 where:
-
-- `CIFID` is the PDB/CIF identifier without the `.cif` extension.
+- `CIFID` is the CIF identifier without the `.cif` extension.
 - `chainID` is the protein chain identifier.
 - `startID` and `endID` define the residue range for a domain segment.
 - Multiple discontinuous segments are separated using `+`.
 
-Example with one continuous segment:
-
-```text
-alpha    1aip_C_2_54
-```
-
-Example with two discontinuous segments:
-
-```text
-alpha    1fnn_A_1_17+192_275
-```
-
-If the protein domain spans the full chain, use the first and last residue numbers of the chain as the start and end positions.
-
-For more details see [K. Newaz, et al. (2022)](https://doi.org/10.1002/prot.26349) ([Github link](https://github.com/KhaliqueN/DynamicPSN))
-
 ---
 
-## 4. Step II: Download the required CIF files
+### &emsp;&emsp;&emsp;b. Download CIF files
 
-After preparing the dataset annotation files, download every `.cif` file referenced by the protein-domain identifiers.
+For every row in every dataset files, download its corresponding `.cif` file referenced by the `CIFID` in the <protein_domain_name> identifier.
 
 For example, the domain:
 
@@ -226,62 +127,57 @@ requires the file:
 1fnn.cif
 ```
 
-A recommended location for downloaded CIF files is:
-
-```text
-repository_root/cif/
-```
-
-Before generating PSNs, confirm that all CIF IDs listed in the dataset annotation file have corresponding `.cif` files in the CIF directory.
+We recommend the user to make a directory to store the downloaded CIF files. Note that across all 72 datasets used in the paper, there exist some identical protein domains.
 
 For batch downloading of `.cif` files, see the following batch downloader from the Protein Data Bank (PDB) ([click here](https://www.rcsb.org/downloads))
 
 ---
 
-## 5. Step III: Generate dynamic PSNs
+### &emsp;&emsp;&emsp;c. Construct dynamic PSNs and extract (full) dGDVMs
 
-In our paper, we follow the same instructions for generating dynamic PSNs from [K. Newaz, et al. (2022)](https://doi.org/10.1002/prot.26349) ([Github link](https://github.com/KhaliqueN/DynamicPSN)). Here, we summarize the steps for generating dynamic PSN:
-
-The software from [K. Newaz, et al. (2022)](https://doi.org/10.1002/prot.26349) can be run in different modes:
+For a dataset, we generate dynamic PSNs for all protein domains following the instructions in, and using the software from, [K. Newaz, et al. (2022)](https://doi.org/10.1002/prot.26349) ([GitHub link](https://github.com/KhaliqueN/DynamicPSN)). The user should download this software. This software can be run in different modes:
 
 | Mode | Output |
 |---|---|
 | `Mode 1` | Generate dynamic PSNs only. |
 | `Mode 2` | Generate dynamic PSNs and dynamic graphlets. |
-| `Mode 3` | Generate dynamic PSNs, dynamic graphlets, and run the original LR-based PSC workflow. |
+| `Mode 3` | Generate dynamic PSNs, dynamic graphlets, and run the original LR-based PSC. |
 
 For our study, the most important outputs are:
 
-1. **Dynamic PSN snapshot files**, used by SGCN/DGCN.
-2. **dGDVMs**, used by CNN+LSTM and optionally by SGCN/DGCN.
+1. **Dynamic PSNs**, which are later used as input for the graph-based deep learning variants ([III.b. GCN variants](#b-gcn-variants)).
+2. **dGDVMs**, which are later used as input for the regular deep learning variants, and optionally for the graph-based deep learning variants ([III.a. CNN+LSTM variants](#a-cnnlstm-variants) and [III.b. GCN variants](#b-gcn-variants)).
 
-Therefore, for our purposes, for each dataset annotation file, we run the following sub-steps:
+Therefore, for our purposes, for each dataset file, we run consider the following when running the software:
 
-### 5.1 Main PSN-generation parameters
+#### Main PSN-generation parameters
 
-The dynamic PSN software requires several important parameters.
+The dynamic PSN software requires several important parameters:
 
-| Parameter | Meaning | Common value in the original workflow |
+| Parameter | Meaning | Value used in the paper when running the software |
 |---|---|---|
-| Distance cutoff | Maximum 3D distance between amino acids for adding an edge in the PSN. | `6`Å |
-| Number of amino acids | Number of residues added at each sequential PSN snapshot. | `5` |
-| Annotation file | Dataset file listing class labels and protein-domain IDs. | File from `datasets/` |
-| CIF directory | Folder containing downloaded `.cif` files. | `cif/` |
+| Distance_cutoff | Maximum 3D distance between amino acids for adding an edge in the PSN. | `6`Å |
+| Number_of_amino_acids | Number of residues added at each sequential PSN snapshot. | `5` |
+| Dataset_file | Dataset `.txt` file | Path to a dataset file in `datasets/` |
+| CIF_directory | Folder containing downloaded `.cif` files. |  Path to the folder containing downloaded `.cif` files |
 
-### 5.2 Example command for generating PSNs only
+#### Command for generating PSNs and (full) dGDVMs
+
+Next, we run the following command to generate the dynamic PSNs and (full) dGDVMs:
 
 ```bash
-Rscript scripts/cmdrun.r 6 5 "Mode 1" datasets/cath-1.txt cif/ 0
+Rscript scripts/cmdrun.r Distance_cutoff Number_of_amino_acids "Mode 2" datasets/Dataset_file.txt CIF_directory/ 0
 ```
+This command generates dynamic PSNs and (full) dGDVMs for the protein domains listed in `datasets/Dataset_file.txt`.
 
-This command generates dynamic PSNs for the protein domains listed in `datasets/cath-1.txt`.
+#### Expected dynamic PSN output and (full) dGDVM file format
 
-### 5.3 Expected dynamic PSN output format
+After completion of the above command, a dataset's generated dynamic PSNs should be located in a newly created directory called `output/dynamic-networks`.
 
-For each protein/domain, the dynamic PSN output should be a folder containing ordered snapshot files:
+For a protein domain in a dataset, its generated dynamic PSN output should be in a folder containing ordered snapshot files. For example:
 
 ```text
-psns/
+dynamic-networks/
 |
 |-- protein_name_1/
 |   |-- 1.txt
@@ -296,42 +192,10 @@ psns/
 |   |-- ...
 ```
 
----
+Additionally, a dataset's generated (full) dGDVMs should be located in a newly created directory called `output/feature-matrix`.
 
-## 6. Step IV: Generate dGDVMs
-
-Dynamic graphlets summarize the topology of dynamic PSNs. In this repository, these features are stored as **dGDVMs**.
-
-A dGDVM is a matrix for one protein/domain sample:
-
-```text
-number of rows    = number of amino acids / PSN nodes
-number of columns = number of dynamic graphlets
+For a protein domain in a dataset, its generated (full) dGDVM file should contain a numeric matrix. For example:
 ```
-
-In our paper, dGDVMs are the primary input to the CNN+LSTM models. They can also be used as initialized features for SGCN/DGCN.
-
-### 6.1 Example command for generating PSNs and dGDVMs
-
-```bash
-Rscript scripts/cmdrun.r 6 5 "Mode 2" datasets/cath-1.txt cif/ 0
-```
-
-This command generates both dynamic PSNs and dynamic graphlets.
-
-### 6.2 Expected dGDVM output format
-
-A dGDVM file should contain one matrix per sample. A recommended structure is:
-
-```text
-dgdvms/
-|
-|-- protein_name_1.txt
-|-- protein_name_2.txt
-|-- ...
-```
-
-Each file should contain a numeric matrix:
 
 ```text
 0 1 2 0 ...
@@ -340,162 +204,87 @@ Each file should contain a numeric matrix:
 ...
 ```
 
-Rows correspond to nodes/amino acids. Columns correspond to dynamic graphlet counts.
+In a (full) dGDVM file, rows correspond to nodes/amino acids and columns correspond to dynamic graphlet counts. In addition, the first column in the file corresponds to the node/amino acid index.
 
-The file name should match, or be easily normalized to match, the sample name in the dataset annotation file.
+## &emsp;II. Data processing and cleaning
 
-*NOTE: generated dGDVMs using the code provided by [K. Newaz, et al. (2022)](https://doi.org/10.1002/prot.26349) will contain zero columns. In our study, we remove the union of all zero columns in all the datasets' dGDVMs, from all dGDVMs. Code to generate the non-zero dGDVMs can be found in `scripts/columns`.*
+After aquiring the dynamic PSNs and their corresponding (full) dGDVMs, we process and clean the data in preparation for input/initialization into our regular deep learning and graph-based deep learning variants. The user is to run the following commands/programs in order:
 
----
+- Because generated (full) dGDVMs -- using the code provided by [K. Newaz, et al. (2022)](https://doi.org/10.1002/prot.26349) -- will contain zero columns (i.e. zero graphlet counts for all nodes), in our study, we remove the union of all zero columns in all the datasets' (full) dGDVMs, from all (full) dGDVMs. to do so, we run the following command:
 
-## 7. Step V: Organize the generated data for this repository
+```bash
+python columns.py
+```
+with the directory containing the (full) dGDVMs (i.e. `output/feature-matrix`) placed in the same folder of the code used to generate the non-zero dGDVMs (i.e. `scripts/columns.py`).
 
-After generating PSNs and dGDVMs, organize the data for the method you want to run; the CNN+LSTM and GCN workflows use different input structures.
+- Because the regular deep learning variants expect a particular organization of datasets and non-zero dGDVM files, we run the following programs:
 
----
-
-### 7.1 Organizing data for CNN+LSTM
-
-The CNN+LSTM workflow expects dataset-specific folders of dGDVM files.
-
-The dataset scripts in `CNN_LSTM/` create subfolders for each dataset from a larger collection of dGDVM files. This makes it easier to train CNN+LSTM models separately on each PSC datasets.
-
-Relevant scripts:
-
-```text
+```bash
 scripts/make_dataset_all.sh
 scripts/make_dataset.sh
 ```
 
-The intended use is:
+with the directory containing the non-zero dGDVMs and `72_datasets` placed in the same folder of the scripts `make_dataset_all.sh` and `make_dataset.sh`.
 
-- `make_dataset_all.sh`: generate folders for all datasets.
-- `make_dataset.sh`: generate a folder for one dataset.
-
-A recommended CNN+LSTM file structure is:
-
-```text
-CNN_LSTM/
-|
-|-- data/
-|   |-- dgdvms/
-|   |   |-- sample_1.txt
-|   |   |-- sample_2.txt
-|   |   |-- ...
-|   |
-|   |-- datasets/
-|       |-- cath-1/
-|       |   |-- sample_1.txt
-|       |   |-- sample_2.txt
-|       |   |-- ...
-|       |
-|       |-- cath-1.10/
-|       |-- ...
-```
-
-The exact folder names may depend on the script settings. The important point is that each dataset-specific CNN+LSTM training script should see only the dGDVM files belonging to that dataset.
+*NOTE: The exact folder names may depend on the script settings. The important point is that each script should see only the dGDVM files belonging to a dataset or all.*
 
 ---
 
-### 7.2 Organizing data for SGCN/DGCN
+## &emsp; III. Run the method variants
 
-The GCN workflow expects each dataset to have its own folder under a `datasets/` directory inside or relative to the GCN run location.
+After preparing the non-zero dGDVMs and dynamic PSNs, we run the considered deep learning method variants. In the paper, we consider two main paradigms of deep learning approaches:
 
-Required structure:
+1. **Regular deep learning variants**, which use the non-zero dGDVMs as input.
+2. **Graph-based deep learning variants**, which use dynamic PSNs, and, optionally non-zero dGDVMs, as input.
 
-```text
-GCN/
-|
-|-- datasets/
-|   |-- <DATASET_NAME>/
-|       |-- <DATASET_NAME>.txt
-|       |-- psns/
-|       |-- dgdvms/
-|       |-- partitions/
-```
+The code for these method variants is provided in `code/CNN_LSTM` and `/conde/GCN`, respectively
 
-The `dgdvms/` folder is required only when using:
+For each method variant, the user should run the corresponding scripts dataset-by-dataset. Each run produces output files containing the performance of the method on a given PSC dataset. 
 
-```bash
---feature_mode dgdvms
-```
-
-The `partitions/` folder is required only when using:
-
-```bash
---partitions_mode user
-```
-
-If you use:
-
-```bash
---partitions_mode auto
-```
-
-then the script automatically generates 5 stratified folds and saves them under the dataset's output folder.
+Below, we go into more detail on both the regular deep learning and graph-based deep learning variants and their corresponding outputs in [III.a. CNN+LSTM variants](#a-cnnlstm-variants) and [III.b. GCN variants](#b-gcn-variants), respectively.
 
 ---
 
-## 8. CNN+LSTM method
+###  &emsp;&emsp;&emsp;  a. CNN+LSTM variants
 
-After the previous steps of setting up the data and file organization, the following sub-steps can be used to operate the CNN+LSTM method:
+The user can find the code for all CNN+LSTM variants in `code/CNN_LSTM/`.
 
-### 8.1 CNN+LSTM input
+#### Method variant code
 
-Recall that each protein/domain is represented by one dGDVM file:
+In the paper, we consider the following four CNN+LSTM variants:
 
-```text
-protein_name_1.txt
-```
-
-The matrix inside the file should have the following interpretation:
-
-```text
-rows    = amino acids / protein nodes
-columns = dynamic graphlets
-```
-
-The input to the CNN+LSTM model is therefore a set of matrices, one matrix per protein/domain sample, along with class labels from the corresponding dataset annotation file.
-
-### 8.2 CNN+LSTM model architectures
-
-Four CNN+BiLSTM architectures are implemented.
-
-| Model name | Architecture | Activation | Description |
+| Varient name as in the paper | Varient name as in `code/CNN_LSTM/` | Input | Main idea |
 |---|---|---|---|
-| `Relu` | 3 CNN layers + 1 BiLSTM layer | ReLU | A CNN model with one bidirectional LSTM layer. |
-| `Leaky` | 3 CNN layers + 1 BiLSTM layer | LeakyReLU | Same depth as `Relu`, but uses LeakyReLU activation. |
-| `Paper` | 2 CNN layers + 3 BiLSTM layers | ReLU | Reproduces the original CNN+LSTM architecture used in the paper. |
-| `Deep` | 3 CNN layers + 3 BiLSTM layers | ReLU | Deeper CNN and BiLSTM model. |
+| Dynamic graphlets + (2 CNN, 3 LSTM) | `paper_model_template_cv.py` | non-zero dGDVM matrix for each protein | The "default" variant inspired by [H. Guo, et al. (2019)](https://arxiv.org/abs/1910.02594); uses 2 CNN layers followed by 3 LSTM layers with ReLU activation. |
+| Dynamic graphlets +  (3 CNN, 3 LSTM) | `deep_model_template_cv.py` | non-zero dGDVM matrix for each protein | The variant that uses 3 CNN layers followed by 3 LSTM layers with ReLU activation. |
+| Dynamic graphlets +  (3 CNN, 1 LSTM) | `relu_model_template_cv.py` | non-zero dGDVM matrix for each protein | The variant that uses 3 CNN layers followed by 1 LSTM layer with ReLU activation. |
+| Dynamic graphlets +  (3 CNN, 1 LSTM) under LeakyReLU | `leaky_model_template_cv.py` | non-zero dGDVM matrix for each protein | The variant that uses 3 CNN layers followed by 1 LSTM layer with LeakyReLU activation. |
 
-Each model type has a corresponding template file in `/CNN_LSTM`:
+#### Input
+
+The general input for each varient is a dataset's:
 
 ```text
-relu_model_template_cv.py
-leaky_model_template_cv.py
-paper_model_template_cv.py
-deep_model_template_cv.py
+non-zero dGDVM files
+class labels
+training/testing folds (if provided)
 ```
 
-### 8.3 Generating dataset-specific CNN+LSTM model scripts
+For a given dataset, the CNN+LSTM code should be run using these files. The expected input organization is the one produced in [II. Process and clean the data](#ii-process-and-clean-the-data).
 
-Training is divided into one model script per dataset. This makes it easier to submit jobs independently on a cluster.
-
-The script:
+Training is divided into one variant script per dataset. This makes it easier to submit jobs independently and in parallel on a cluster. To generate dataset-specific variants, the following script is run:
 
 ```text
 make_models.py
 ```
 
-takes a model-template file as input and generates dataset-specific model files.
-
-Example:
+which takes a varient-template file as input and generates dataset-specific variant files. For example:
 
 ```bash
 python make_models.py relu_model_template_cv.py
 ```
 
-Repeat this command for each CNN+LSTM architecture you want to run:
+Repeat this command for each CNN+LSTM variant the user wants to run:
 
 ```bash
 python make_models.py leaky_model_template_cv.py
@@ -503,47 +292,65 @@ python make_models.py paper_model_template_cv.py
 python make_models.py deep_model_template_cv.py
 ```
 
-### 8.4 Running CNN+LSTM training
-
 After dataset-specific model scripts are generated, run each script directly or submit it as a batch job on a cluster environment.
 
 Example:
 
 ```bash
-python generated_model_for_cath_1.py
+python generated_model_for_dataset.py
 ```
 
-### 8.5 CNN+LSTM output
+*Note that optional command-line arguments and method parameters are fixed in the varient-template files. If a user wishes to change the method parameters/arguments for a CNN+LSTM variant, one would need to change these parameters in the `.py` file, and then re-generate dataset-specific variant files using `make_models.py` (described above)*
 
-After cross-validation training, the CNN+LSTM workflow produces outputs such as:
+#### Output and interpretation
+
+For each dataset, the method is evaluated under five-fold cross-validation. That is, the model is trained and tested five times, once per fold. The output should therefore allow the user to determine the method's performance on each fold, as well as its aggregate misclassification performance across folds. The CNN+LSTM workflow produces log files that contain the following outputs:
 
 - per-fold misclassification rate,
 - aggregate misclassification rate,
 - aggregate confusion matrix,
-- logs or intermediate output files depending on the model script.
+- variant run times
 
-Only aggregate misclassification results are typically processed downstream by `process_results.py`, while confusion matrices can be extracted using `extract_cm.py`.
+In our workflow, two additional scripts are used to extract and summarize the outputs from the CNN+LSTM method runs:
+
+```text
+process_results.py
+extract_cm.py
+```
+These scripts are used for different purposes:
+
+The script `process_results.py` is used to collect and summarize the misclassification-rate results produced by the CNN+LSTM method runs.
+
+In particular, this script is used to extract the aggregate misclassification rate for each dataset and method variant. The typical input to `process_results.py` is the directory or set of output files produced by a CNN+LSTM method run. The script reads these output files, extracts the relevant misclassification-rate values, and organizes them into a cleaner result file that can be used for downstream comparison across datasets and methods.
+
+The script `extract_cm.py` is used to extract confusion matrices from the CNN+LSTM method outputs.
+
+While the misclassification rate tells us how often the method is wrong overall, the confusion matrix helps identify which structural classes are being confused with one another. The typical input to `extract_cm.py` is the raw CNN+LSTM output containing prediction results or logged confusion-matrix information. The script extracts the confusion matrix and writes it into a separate, easier-to-read format.
 
 ---
 
-## 9. SGCN and DGCN method
+###   &emsp;&emsp;&emsp; b. GCN variants
 
-The GCN workflow runs PSC directly on PSN snapshots.
+The user can find the code for all GCMN variants in `code/GCN/`.
 
-The `GCN/GCN.py` supports the following methods:
 
-| Method | Input | Main idea |
-|---|---|---|
-| `SGCN` | Final PSN snapshot only + (default or dGDVMs) | Static graph method; ignores temporal evolution. |
-| `DGCN` | Dynamic PSN  + (default or dGDVMs) | Dynamic graph method; uses all snapshots and models temporal information. |
+#### Method variant code
 
-Below, we briefly discribe the method frameworks:
+In the paper, we consider the following three GCN variants:
 
-### 9.1 SGCN
+| Method variant             | Description                                                                         |
+| -------------------------- | ----------------------------------------------------------------------------------- |
+| `Default features + DGCN`  | Uses dynamic PSNs as graph inputs with default node feature initialization.                       |
+| `Dynamic graphlets + DGCN` | Uses dynamic PSNs as graph inputs with non-zero dGDVM feature initialization.        |
+| `Dynamic graphlets + SGCN` | Uses the final/static PSN representation with non-zero dGDVM feature initialization. |
 
-Input: one PSN snapshot per protein/domain. Specifically, in our study, SGCN uses only the final PSN snapshot generated using the code provided by [K. Newaz, et al. (2022)](https://doi.org/10.1002/prot.26349).
+Note that the GCN code supports both **static GCN (SGCN)** and **dynamic GCN (DGCN)** methods. Below we go into more detail on running both the SGCN and DGCN methods
 
-SGCN method framework:
+<!-- #### SGCN
+
+SGCN is the static GCN model. Its input is **one PSN snapshot per protein/domain**. Specifically, in our study, SGCN uses only the **final PSN snapshot** generated using the code provided by [Newaz et al. (2022)](https://doi.org/10.1002/prot.26349).
+
+At a high level, the SGCN framework is:
 
 ```text
 final PSN snapshot
@@ -561,13 +368,13 @@ classifier
 predicted PSC class
 ```
 
-### 9.2 DGCN
+Thus, SGCN is used to evaluate how well a static graph representation of a protein domain can perform in the PSC task.
 
-DGCN is the dynamic GCN model.
+#### DGCN
 
-Input: full ordered sequence of PSN snapshots per protein/domain. Specifically, in our study, DGCN uses the entire dynamic PSN generated using the code provided by [K. Newaz, et al. (2022)](https://doi.org/10.1002/prot.26349).
+DGCN is the dynamic GCN model. Its input is the **full ordered sequence of PSN snapshots** for each protein/domain. Specifically, in our study, DGCN uses the entire dynamic PSN generated using the code provided by [Newaz et al. (2022)](https://doi.org/10.1002/prot.26349).
 
-DGCN method framework:
+At a high level, the DGCN framework is:
 
 ```text
 PSN snapshot 1      PSN snapshot 2      ...      PSN snapshot S
@@ -587,25 +394,68 @@ PSN snapshot 1      PSN snapshot 2      ...      PSN snapshot S
                   predicted PSC class
 ```
 
-### 9.3 GCN feature modes
+Thus, DGCN is used to evaluate whether modeling the ordered sequence of dynamic PSN snapshots improves PSC performance compared to using only the final/static PSN snapshot. -->
 
-The `GCN.py` script supports two feature initializations for both SGCN and DGCN.
+#### Input
 
-| Feature mode | Description | Required folder |
-|---|---|---|
-| `default` | Uses randomly initialized/default node features. Feature size is controlled by `--default_feature_dim`. | No `dgdvms/` folder required. |
-| `dgdvms` | Uses dGDVM matrices as node features. | Requires `dgdvms/`. |
+The general inputs to the GCN methods are:
 
-### 9.4 GCN partition modes
+```text
+dynamic PSNs
+non-zero dGDVM files (when dGDVMs are used)
+dataset class labels
+training/testing folds (if provided)
+```
 
-The GCN script supports two partition modes for both SGCN and DGCN.
+For the dynamic GCN variants, the input for each protein domain is a full dynamic PSN. These ordered snapshots are the same dynamic PSNs generated in [I.c. Construct dynamic PSNs and extract (full) dGDVMs](#c-construct-dynamic-psns-and-extract-full-dgdvms).
 
-| Partition mode | Description | Required folder |
-|---|---|---|
-| `user` | Uses existing 5-fold partitions. | Requires `partitions/1.txt` through `partitions/5.txt`. |
-| `auto` | Automatically generates 5 stratified folds. | No user partitions required. |
+For the static GCN variant, only the final PSN snapshot of the dynamic PSN is used.
 
-If using `user` mode, the partition folder must contain:
+#### Main GCN parameters
+
+The `GCN.py` script supports two feature initialization modes for both SGCN and DGCN:
+
+| Feature mode | Description                                                                                             | Required folder               |
+| ------------ | ------------------------------------------------------------------------------------------------------- | ----------------------------- |
+| `default`    | Uses randomly initialized/default node features. Feature size is controlled by `--default_feature_dim`. | No `dgdvms/` folder required. |
+| `dgdvms`     | Uses non-zero dGDVM matrices as node features.                                                          | Requires `dgdvms/`.           |
+
+The `dgdvms/` folder is required only when using:
+
+```bash
+--feature_mode dgdvms
+```
+
+If using:
+
+```bash
+--feature_mode default
+```
+
+then no `dgdvms/` folder is required.
+
+Inaddition, the `GCN.py` script supports two partition modes for both SGCN and DGCN:
+
+| Partition mode | Description                                    | Required folder                                         |
+| -------------- | ---------------------------------------------- | ------------------------------------------------------- |
+| `user`         | Uses existing five-fold partitions.            | Requires `partitions/1.txt` through `partitions/5.txt`. |
+| `auto`         | Automatically generates five stratified folds. | No user-provided partitions are required.               |
+
+The `partitions/` folder is required only when using:
+
+```bash
+--partitions_mode user
+```
+
+If using:
+
+```bash
+--partitions_mode auto
+```
+
+then the script automatically generates five stratified folds and saves them under the dataset's output folder.
+
+If the user wishes to match a specific set of five-fold partitions, then `--partitions_mode user` should be used. In this case, the partition folder must contain:
 
 ```text
 partitions/
@@ -618,9 +468,9 @@ partitions/
 
 Each file lists the test samples for that fold, one protein/domain per line.
 
-### 9.5 GCN command-line arguments
+#### GCN command-line arguments
 
-Required arguments:
+The required command-line arguments are:
 
 ```text
 --dataset_name       Dataset folder name.
@@ -629,7 +479,7 @@ Required arguments:
 --partitions_mode    user or auto.
 ```
 
-Optional arguments:
+The optional command-line arguments include:
 
 ```text
 --root_dir                 Root directory. Default: .
@@ -640,84 +490,74 @@ Optional arguments:
 --quiet_epochs             Reduce epoch-level printed output.
 ```
 
-### 9.6 GCN output
+For example, to run DGCN with non-zero dGDVM node features and user-provided five-fold partitions, the command would have the following general form:
+
+```bash
+python GCN.py \
+    --dataset_name DATASET_NAME \
+    --model_type dgcn \
+    --feature_mode dgdvms \
+    --partitions_mode user
+```
+
+To run SGCN with non-zero dGDVM node features and automatically generated partitions, the command would have the following general form:
+
+```bash
+python GCN.py \
+    --dataset_name DATASET_NAME \
+    --model_type sgcn \
+    --feature_mode dgdvms \
+    --partitions_mode auto
+```
+
+To run DGCN with default node features and automatically generated partitions, the command would have the following general form:
+
+```bash
+python GCN.py \
+    --dataset_name DATASET_NAME \
+    --model_type dgcn \
+    --feature_mode default \
+    --partitions_mode auto
+```
+
+#### Output and interpretation
 
 All GCN outputs are written to:
 
 ```text
-GCN/datasets/<DATASET_NAME>/output/
+GCN/<DATASET_NAME>/output/
 ```
 
-Output files include:
+The output files include:
+
+
+- run.log
+- fold_metrics.csv
+- raw_classifications.csv
+- optimal_hyperparameters.json
+- runtime_seconds.txt
+- generated_partitions/
+
+
+The output files have the following meanings:
+
+| Output                         | Meaning                                                          |
+| ------------------------------ | ---------------------------------------------------------------- |
+| `run.log`                      | Full log of the run.                                             |
+| `fold_metrics.csv`             | Fold-level performance values.                                   |
+| `raw_classifications.csv`      | Per-sample predictions and true labels.                          |
+| `optimal_hyperparameters.json` | Best hyperparameters selected during inner cross-validation.     |
+| `runtime_seconds.txt`          | Total runtime of the run.                                        |
+| `generated_partitions/`        | Auto-generated partitions, if `--partitions_mode auto` was used. |
+
+For each dataset, the GCN variant is evaluated under five-fold cross-validation. The outputs should therefore allow the user to determine the method's fold-level performance, aggregate misclassification performance across folds, per-sample predictions, selected hyperparameters, and runtime.
+
+*NOTE: if an invalid sample is detected, the GCN script records the invalid sample in:*
 
 ```text
+skipped_samples.txt
 run.log
-fold_metrics.csv
-raw_classifications.csv
-optimal_hyperparameters.json
-runtime_seconds.txt
-generated_partitions/
 ```
+and then continues running. Therefore, the user should check these files after each run to determine whether any samples were skipped.
 
-Output meanings:
-
-| Output | Meaning |
-|---|---|
-| `run.log` | Full log of the run. |
-| `fold_metrics.csv` | Fold-level performance values. |
-| `raw_classifications.csv` | Per-sample predictions and true labels. |
-| `optimal_hyperparameters.json` | Best hyperparameters selected during inner CV. |
-| `runtime_seconds.txt` | Total runtime. |
-| `generated_partitions/` | Auto-generated partitions, if `--partitions_mode auto` was used. |
-
-*Important: if an invalid sample is detected, the GCN script records the invalid sample in a `skipped_samples.txt` and in `run.log`, and then continues.*
-
----
-
-## 10. Inputs and outputs for each method
-
-### 10.1 CNN+LSTM
-
-### 10.2 SGCN
-
-### 10.3 DGCN
-
----
-
-## 11. Results processing
-
-### 11.1 CNN+LSTM results
-
-Use:
-
-```bash
-python process_results.py
-```
-
-This script compiles aggregate misclassification rates across datasets.
-
-Use:
-
-```bash
-python extract_cm.py
-```
-
-This script extracts aggregate confusion matrices for class-level performance analysis.
-
-### 11.2 GCN results
-
-GCN results are already written into the dataset-specific output folder:
-
-```text
-GCN/datasets/<DATASET_NAME>/output/
-```
-
-```text
-fold_metrics.csv
-raw_classifications.csv
-runtime_seconds.txt
-```
-
-from each dataset output folder.
-
----
+## &emsp; IV. Our results: misclassification rates and runtimes for all method variants
